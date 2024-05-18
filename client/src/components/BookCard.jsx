@@ -1,0 +1,193 @@
+import React, { useEffect, useState } from 'react'
+import PassengerForm from './PassengerForm';
+import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
+export default function BookCard() {
+ const navigate = useNavigate();
+  // from=${prop.fromName}&to=${prop.toName}&date=${selectedDate}&trainNo=${prop.trainNo}&trainName=${prop.trainName}&FromStationNumber=${prop.FromStationNumber}&toStationNumber=${prop.toStationNumber}
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const from = searchParams.get('from');
+  const to = searchParams.get('to');
+  const date = new Date(searchParams.get('date'));
+  const trainNo = searchParams.get('trainNo');
+  const trainName = searchParams.get('trainName');
+  const FromStationNumber = searchParams.get('FromStationNumber');
+  const toStationNumber = searchParams.get('toStationNumber');
+  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', ' Fri', 'Sat'];
+const monthsoftheyear = ['Jan' , 'Feb', 'Mar' ,'April', 'May','Jun','Jul','Aug','Sep','Oct','Nov','Dec' ]
+ 
+
+
+    const[totalPass , setTotalPass] = useState([true,false,false,false]);
+    const[passInfo , setPassInfo] = useState([]);
+    // let arr = [true,false,false,false];
+
+    const [one , setOne] = useState(true);
+    const [two , setTwo] = useState(false);
+    const [three , setThree] = useState(false);
+    const [four , setFour] = useState(false);
+    
+   
+// console.log(totalPass)/
+const[sumne, setSumne ] = useState(0)
+let temparr = ["hi"];
+// var sumne = 0;
+
+
+const handlechange = () => {
+  console.log("inside handlechanfe")
+  if(one == false){
+   setOne(true)
+  }else if(two == false){
+    setTwo(true)
+  }else if(three == false){
+   setThree(true)
+  }else if(four== false){
+    setFour(true);
+  }
+}
+
+const [oneinfo , setOneinfo] = useState({"name" : "" , "age" : 0 , "gender" :""});
+const [twoinfo , setTwoinfo] = useState({"name" : "" , "age" : 0 , "gender" :""});
+const [threeinfo , setThreeinfo] = useState({"name" : "" , "age" : 0 , "gender" :""});
+const [fourinfo , setFourinfo] = useState({"name" : "" , "age" : 0 , "gender" :""});
+
+// console.log(oneinfo ,twoinfo , threeinfo , fourinfo)
+
+const handleBook = () => {
+  var passengerNames = "";
+  var passengerAge = "";
+  var passengerGender = "";
+  var total_ticket = 0;
+  var tempdate = `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`
+  if(one){
+    passengerNames += oneinfo.name;
+    passengerAge += oneinfo.age;
+    passengerGender += oneinfo.gender;
+    total_ticket += 1;
+  }
+  if(two){
+    passengerNames += "," + twoinfo.name;
+    passengerAge += "," + twoinfo.age;
+    passengerGender += "," + twoinfo.gender;
+    total_ticket += 1;
+  }
+  if(three){
+    passengerNames += "," + threeinfo.name;
+    passengerAge += "," + threeinfo.age;
+    passengerGender += "," + threeinfo.gender;
+    total_ticket += 1;
+  }
+  if(four){
+    passengerNames += "," + fourinfo.name;
+    passengerAge += "," + fourinfo.age;
+    passengerGender += "," + fourinfo.gender;
+    total_ticket += 1;
+  }
+
+
+  const fun = async() => {
+    const resp =  await axios.post(`${apiUrl}/api/bookticket`, {
+      "userId" : "user1@gmail.com",
+      "pnrNumber" : 1123,
+       "trainNo" : trainNo,
+      "trainName"  :trainName, 
+      "fromName" : from,
+       "toName"  : to,
+        "fromStationNumber" : FromStationNumber,
+         "toStationNumber" : toStationNumber,
+          "trainDate" : tempdate,
+           "passengerNames" : passengerNames,
+            "passengerAge" : passengerAge,
+             "passengerGender" : passengerGender,
+              "totalTickets" : total_ticket
+    })
+  }
+  fun().then(()=>{
+    alert("tickets booked")
+    navigate('/')
+    
+  });
+}
+  return (
+    <div className='bg-white  h-screen w-full '>
+
+
+        {/* <div className=' pt-24 p-8 border-2  border-black rounded '>
+            <div className='text-3xl font-bold'>SBC TLGP EXP (20651)</div>
+            <div className='flex text-2xl my-2 mt-6  w-10/12'>
+                <div className=''><span className='font-bold pb-1'>15:00 | KSR BENGALURU </span>
+                <div className='text-center'>Tue, 21 May</div></div>
+                <div className='mx-auto'>__04:14___</div>
+                <div className='absolute right-0 mr-6'><span className='font-bold pb-1'>19:14 | SHIVAMOGGA H </span>
+                <div className='text-center'>Tue, 21 May</div></div>
+            </div>
+            <div className='text-center font-bold m-4 '> <span className='p-2 border-2 bg-gray-100'>Second Sitting (2S) | General</span></div>
+        </div> */}
+
+
+<div className="container mx-auto px-4 py-6">
+      <div className="bg-white shadow-md rounded-lg p-6">
+        <div className="border-b pb-4 mb-4">
+          <h1 className="text-2xl font-bold">{trainName} ({trainNo})</h1>
+          <p className="text-sm text-gray-600">Runs On: M T W T F S S</p>
+          <div className="flex justify-between items-center mt-4">
+            <div>
+              <p className="text-lg">00:00 | {from}</p>
+              <p className="text-sm text-gray-600">{daysOfWeek[date.getDay()]}, {date.getDate()} {monthsoftheyear[date.getMonth()]}</p>
+            </div>
+            <p className="text-xl font-semibold">04:14</p>
+            <div>
+              <p className="text-lg">00:00 | {to}</p>
+              <p className="text-sm text-gray-600">{daysOfWeek[date.getDay()]}, {date.getDate()} {monthsoftheyear[date.getMonth()]}</p>
+            </div>
+          </div>
+          <div className="mt-4">
+            <button className="bg-yellow-200 text-black px-3 py-1 rounded-lg mr-2">Second Sitting (2S)</button>
+            <button className="bg-yellow-200 text-black px-3 py-1 rounded-lg">General</button>
+          </div>
+        </div>
+
+        <div className="border-b pb-4 mb-4">
+          <div className="flex justify-between items-center">
+            <h2 className="text-xl font-semibold">CHANGE</h2>
+            <div>
+              <p className="text-sm">Boarding Station | <span className="font-semibold">{from}</span></p>
+              <p className="text-sm">Arrival: -- | Departure: 15:00 | Day: 1 | Boarding Date: {daysOfWeek[date.getDay()]}, {date.getDate()} {date.getFullYear()}</p>
+            </div>
+          </div>
+          <p className="text-sm text-blue-600 mt-2">Please check <a href="#" className="underline">NTES website</a> or <a href="#" className="underline">NTES app</a> for actual time before boarding.</p>
+        </div>
+
+        <div className="bg-orange-100 p-4 rounded-md mb-4">
+          <p className="text-sm text-orange-800">Note: Please submit full name of the passengers instead of initials.</p>
+          <p className="text-sm text-orange-800">Note: The ID card will be required during journey.</p>
+        </div>
+
+
+
+{one ? <PassengerForm  id={0} setpassInfo={setOneinfo} sett={setOne} /> : ""}
+{two ? <PassengerForm  id={1} setpassInfo={setTwoinfo} sett={setTwo}/> : ""}
+{three ? <PassengerForm  id={2} setpassInfo={setThreeinfo} sett={setThree} /> : ""}
+{four ? <PassengerForm  id={3} setpassInfo={setFourinfo} sett={setFour} /> : ""}
+        
+
+        <div className="mt-6 flex justify-between items-center">
+          <button className="text-blue-600 hover:underline" onClick={handlechange}>+ Add Passenger/ Add Infant With Berth</button>
+          <button className="text-blue-600 hover:underline">+ Add Infant Without Berth</button>
+        </div>
+
+        <p className="mt-4 text-xs text-gray-500">
+          *Children under 5 years of age shall be carried free and no purchase of any ticket is required. (If no separate berth is opted.)
+        </p>
+        <div className='m-3'>
+        <button onClick={handleBook} className="bg-green-200 text-black text-xl font-bold px-5 py-3 rounded-lg">Book</button>
+        </div>
+      </div>
+    </div>
+        
+    </div>
+  )
+}
