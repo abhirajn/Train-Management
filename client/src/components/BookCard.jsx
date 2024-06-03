@@ -111,8 +111,62 @@ const handleBook = () => {
     
   });
 }
+
+
+const handleContinue = () =>{
+  var passengerNames = "";
+  var passengerAge = "";
+  var passengerGender = "";
+  var total_ticket = 0;
+  var tempdate = `${date.getMonth()+1}-${date.getDate()}-${date.getFullYear()}`
+  if(one){
+    passengerNames += oneinfo.name;
+    passengerAge += oneinfo.age;
+    passengerGender += oneinfo.gender;
+    total_ticket += 1;
+  }
+  if(two){
+    passengerNames += "," + twoinfo.name;
+    passengerAge += "," + twoinfo.age;
+    passengerGender += "," + twoinfo.gender;
+    total_ticket += 1;
+  }
+  if(three){
+    passengerNames += "," + threeinfo.name;
+    passengerAge += "," + threeinfo.age;
+    passengerGender += "," + threeinfo.gender;
+    total_ticket += 1;
+  }
+  if(four){
+    passengerNames += "," + fourinfo.name;
+    passengerAge += "," + fourinfo.age;
+    passengerGender += "," + fourinfo.gender;
+    total_ticket += 1;
+  }
+
+
+  const data = {
+    "userId" : "user1@gmail.com",
+      "pnrNumber" : 1123,
+       "trainNo" : trainNo,
+      "trainName"  :trainName, 
+      "fromName" : from,
+       "toName"  : to,
+        "fromStationNumber" : FromStationNumber,
+         "toStationNumber" : toStationNumber,
+          "trainDate" : tempdate,
+           "passengerNames" : passengerNames,
+            "passengerAge" : passengerAge,
+             "passengerGender" : passengerGender,
+              "totalTickets" : total_ticket
+  }
+  
+    navigate('/ticketSummary', { state: data });
+}
+
+
   return (
-    <div className='bg-white  h-screen w-full '>
+    <div className='bg-white '>
 
 
         {/* <div className=' pt-24 p-8 border-2  border-black rounded '>
@@ -128,9 +182,9 @@ const handleBook = () => {
         </div> */}
 
 
-<div className="container mx-auto px-4 py-6">
+<div className="px-16 py-6">
       <div className="bg-white shadow-md rounded-lg p-6">
-        <div className="border-b pb-4 mb-4">
+        <div className="border-b border-gray-300 shadow-md pb-4 mb-4">
           <h1 className="text-2xl font-bold">{trainName} ({trainNo})</h1>
           <p className="text-sm text-gray-600">Runs On: M T W T F S S</p>
           <div className="flex justify-between items-center mt-4">
@@ -150,7 +204,7 @@ const handleBook = () => {
           </div>
         </div>
 
-        <div className="border-b pb-4 mb-4">
+        <div className="border-b border-gray-300 pb-4 mb-4">
           <div className="flex justify-between items-center">
             <h2 className="text-xl font-semibold">CHANGE</h2>
             <div>
@@ -161,19 +215,21 @@ const handleBook = () => {
           <p className="text-sm text-blue-600 mt-2">Please check <a href="#" className="underline">NTES website</a> or <a href="#" className="underline">NTES app</a> for actual time before boarding.</p>
         </div>
 
-        <div className="bg-orange-100 p-4 rounded-md mb-4">
+        <div className="bg-orange-100 border-gray-300 p-4 rounded-md mb-4">
           <p className="text-sm text-orange-800">Note: Please submit full name of the passengers instead of initials.</p>
           <p className="text-sm text-orange-800">Note: The ID card will be required during journey.</p>
         </div>
 
 
-
+<div className='border-b border-gray-300'>
+<h2 className="text-xl font-semibold mb-2">Passenger Details</h2>
 {one ? <PassengerForm  id={0} setpassInfo={setOneinfo} sett={setOne} /> : ""}
 {two ? <PassengerForm  id={1} setpassInfo={setTwoinfo} sett={setTwo}/> : ""}
 {three ? <PassengerForm  id={2} setpassInfo={setThreeinfo} sett={setThree} /> : ""}
 {four ? <PassengerForm  id={3} setpassInfo={setFourinfo} sett={setFour} /> : ""}
+</div>
         
-
+         <div className='border-b border-gray-300'>
         <div className="mt-6 flex justify-between items-center">
           <button className="text-blue-600 hover:underline" onClick={handlechange}>+ Add Passenger/ Add Infant With Berth</button>
           <button className="text-blue-600 hover:underline">+ Add Infant Without Berth</button>
@@ -182,8 +238,38 @@ const handleBook = () => {
         <p className="mt-4 text-xs text-gray-500">
           *Children under 5 years of age shall be carried free and no purchase of any ticket is required. (If no separate berth is opted.)
         </p>
+
+        </div>
+        <div className="border-b border-gray-300 py-4 my-1 ">
+          <div className=" justify-between items-center">
+            <h2 className="text-xl font-semibold mb-2">Contact Details</h2>
+            <div>
+<p>(Ticket details will be sent to email- ca******@gmail.com and registered mobile number 79******39)</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div className="border-b border-gray-300 py-4 my-1 ">
+          <div className=" justify-between items-center">
+            <h2 className="text-xl font-semibold mb-2">Payment Mode</h2>
+            <div>
+              <input type='radio' name='radio' id='money' />
+              <label htmlFor="money" className='font-bold'> Pay through Credit & Debit Cards / Net Banking / Wallets / Bharat QR / Pay on Delivery/ Rewards and Others</label>
+              <p className='font-sm text-gray-600'>Convenience Fee: ₹15/- + GST</p>
+              <input className='mt-4' type='radio' name='radio' id='upi' />
+              <label htmlFor="upi" className='font-bold'>Pay through BHIM/UPI</label>
+              <p className='font-sm text-gray-600'>Convenience Fee: ₹10/- + GST</p>
+            </div>
+          </div>
+
+        </div>
+
+
         <div className='m-3'>
-        <button onClick={handleBook} className="bg-green-200 text-black text-xl font-bold px-5 py-3 rounded-lg">Book</button>
+        <button  className="bg-white border border-black text-black text-lg font-bold px-4 py-2 rounded-lg mr-3">Back</button>
+
+        <button  onClick={handleContinue}  className="bg-orange-200  border border-black text-black text-lg font-bold px-4 py-2 rounded-lg">Continue</button>
         </div>
       </div>
     </div>
