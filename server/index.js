@@ -1,15 +1,27 @@
 const express = require('express');
 const adminRoutes = require('./routes/adminRoutes')
 const userRoutes = require('./routes/userRoutes')
+const authRoutes = require('./routes/authRoutes')
+const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
+const bodyParser = require('body-parser');
 const cors = require('cors')
 const app = express();
+app.use(cors({
+    origin: 'http://localhost:5173' ,  // Replace with your frontend domain
+    credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+  }));
 
+app.use(cookieParser());
 
+// Other middlewares
 app.use(express.json());
-app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+
 
 app.use('/admin' , adminRoutes)
 app.use('/api' , userRoutes)
+app.use('/user' , authRoutes)
 app.get('/' , (req,res)=>[
     res.send('hi')
 ])

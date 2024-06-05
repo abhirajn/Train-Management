@@ -98,7 +98,7 @@ export default function SummaryCard({state}) {
 
 <div> <form onSubmit={handleSubmit}>
 
-        <ReCaptcha onChange={handleCaptchaChange} />
+        {/* <ReCaptcha onChange={handleCaptchaChange} /> */}
        
         <input 
           type="text" 
@@ -108,7 +108,7 @@ export default function SummaryCard({state}) {
         <button type="submit" className="bg-white border border-black text-black text-sm font-semibold px-4 py-2 rounded-lg mr-3">Submit</button>
       </form></div>
 
-      <button  className="bg-white border border-black text-black text-lg font-bold px-8 py-1 rounded-lg mr-3 my-5">Pay</button>
+      <button  className="bg-white border border-black text-black text-lg font-bold px-8 py-1 rounded-lg mr-3 my-5">Book</button>
     </div>
     </div>
   )

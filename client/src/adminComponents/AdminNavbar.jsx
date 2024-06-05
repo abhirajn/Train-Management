@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 import axios from 'axios';
-import { isAuthenticated } from '../utils/auth';
+// import { isAuthenticated } from '../utils/auth';
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 
 
-export default function Navbar({logged , setLogged}) {
+export default function AdminNavbar({logged , setLogged}) {
 
   const navigate = useNavigate();
 // const[logged, setLogged] = useState(false);
@@ -27,18 +27,18 @@ export default function Navbar({logged , setLogged}) {
 
 
 const handleLogout = () => {
-  axios.get(`${apiUrl}/user/logout`,  { withCredentials: true })
-    .then(response => {
-      console.log(response.data.message); // Logged out successfully
-      // Redirect to login page or update UI accordingly
-      setLogged(false)
-      navigate('/');
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+//   axios.get(`${apiUrl}/user/logout`,  { withCredentials: true })
+//     .then(response => {
+//       console.log(response.data.message); // Logged out successfully
+//       // Redirect to login page or update UI accordingly
+//       setLogged(false)
+//       navigate('/');
+//     })
+//     .catch(error => {
+//       console.error('Error:', error);
+//     });
 };
-console.log(logged)
+// console.log(logged)
   return (
     <div>
         <div className='w-full h-9 bg-black '>
@@ -61,7 +61,6 @@ console.log(logged)
         </div></> 
       :<div className='flex'>
         <button onClick={()=>{navigate('/login')}} type="button" className="mr-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
-        <button onClick={()=>{navigate('/register')}} type="button" className="ml-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Register</button>
         </div>}
       <button data-collapse-toggle="navbar-sticky" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
         <span className="sr-only">Open main menu</span>
@@ -73,13 +72,13 @@ console.log(logged)
   <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
     <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
       <li>
-        <a href="#" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Home</a>
+        <a  onClick={()=>{navigate('/admin/home')}} className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Home</a>
       </li>
       <li>
-        <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
+        <a onClick={()=>{navigate('/admin/addTrain')}} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Add Train</a>
       </li>
       <li>
-        <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</a>
+        <a onClick={()=>{navigate('/admin/editTrain')}} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Edit Train</a>
       </li>
       <li>
         <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>

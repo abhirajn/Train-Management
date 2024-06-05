@@ -15,6 +15,12 @@ export default function BookCard() {
   const trainName = searchParams.get('trainName');
   const FromStationNumber = searchParams.get('FromStationNumber');
   const toStationNumber = searchParams.get('toStationNumber');
+  const finalDate = searchParams.get('endDate');
+  const finalTime = searchParams.get('endTime');
+  const fare = searchParams.get('fare');
+  const starttime = searchParams.get('starttime');
+  const duration = searchParams.get('duration')
+  // const 
   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', ' Fri', 'Sat'];
 const monthsoftheyear = ['Jan' , 'Feb', 'Mar' ,'April', 'May','Jun','Jul','Aug','Sep','Oct','Nov','Dec' ]
  
@@ -28,6 +34,7 @@ const monthsoftheyear = ['Jan' , 'Feb', 'Mar' ,'April', 'May','Jun','Jul','Aug',
     const [two , setTwo] = useState(false);
     const [three , setThree] = useState(false);
     const [four , setFour] = useState(false);
+    const [payMode , setPayMode] = useState(1);
     
    
 // console.log(totalPass)/
@@ -103,7 +110,7 @@ const handleBook = () => {
             "passengerAge" : passengerAge,
              "passengerGender" : passengerGender,
               "totalTickets" : total_ticket
-    })
+    },{withCredentials: true })
   }
   fun().then(()=>{
     alert("tickets booked")
@@ -146,7 +153,7 @@ const handleContinue = () =>{
 
 
   const data = {
-    "userId" : "user1@gmail.com",
+    "userId" : "",
       "pnrNumber" : 1123,
        "trainNo" : trainNo,
       "trainName"  :trainName, 
@@ -189,12 +196,12 @@ const handleContinue = () =>{
           <p className="text-sm text-gray-600">Runs On: M T W T F S S</p>
           <div className="flex justify-between items-center mt-4">
             <div>
-              <p className="text-lg">00:00 | {from}</p>
+              <p className="text-lg">{starttime} | {from}</p>
               <p className="text-sm text-gray-600">{daysOfWeek[date.getDay()]}, {date.getDate()} {monthsoftheyear[date.getMonth()]}</p>
             </div>
-            <p className="text-xl font-semibold">04:14</p>
+            <p className="text-xl font-semibold">-- {duration} --</p>
             <div>
-              <p className="text-lg">00:00 | {to}</p>
+              <p className="text-lg">{finalTime} | {to}</p>
               <p className="text-sm text-gray-600">{daysOfWeek[date.getDay()]}, {date.getDate()} {monthsoftheyear[date.getMonth()]}</p>
             </div>
           </div>
@@ -206,10 +213,10 @@ const handleContinue = () =>{
 
         <div className="border-b border-gray-300 pb-4 mb-4">
           <div className="flex justify-between items-center">
-            <h2 className="text-xl font-semibold">CHANGE</h2>
+            <h2 className="text-xl font-semibold">Boarding Station:</h2>
             <div>
               <p className="text-sm">Boarding Station | <span className="font-semibold">{from}</span></p>
-              <p className="text-sm">Arrival: -- | Departure: 15:00 | Day: 1 | Boarding Date: {daysOfWeek[date.getDay()]}, {date.getDate()} {date.getFullYear()}</p>
+              <p className="text-sm">Arrival: {finalTime} | Departure: {starttime} | Day: 1 | Boarding Date: {daysOfWeek[date.getDay()]}, {date.getDate()} {date.getFullYear()}</p>
             </div>
           </div>
           <p className="text-sm text-blue-600 mt-2">Please check <a href="#" className="underline">NTES website</a> or <a href="#" className="underline">NTES app</a> for actual time before boarding.</p>
@@ -244,7 +251,7 @@ const handleContinue = () =>{
           <div className=" justify-between items-center">
             <h2 className="text-xl font-semibold mb-2">Contact Details</h2>
             <div>
-<p>(Ticket details will be sent to email- ca******@gmail.com and registered mobile number 79******39)</p>
+<p>(Ticket details will be sent to email- ********@gmail.com and registered mobile number ******)</p>
             </div>
           </div>
 
@@ -254,22 +261,24 @@ const handleContinue = () =>{
           <div className=" justify-between items-center">
             <h2 className="text-xl font-semibold mb-2">Payment Mode</h2>
             <div>
-              <input type='radio' name='radio' id='money' />
+              <input onClick={()=>{setPayMode(1)}} type='radio' name='radio' id='money' />
               <label htmlFor="money" className='font-bold'> Pay through Credit & Debit Cards / Net Banking / Wallets / Bharat QR / Pay on Delivery/ Rewards and Others</label>
               <p className='font-sm text-gray-600'>Convenience Fee: ₹15/- + GST</p>
-              <input className='mt-4' type='radio' name='radio' id='upi' />
+              <input onClick={()=>{setPayMode(2)}} className='mt-4' type='radio' name='radio' id='upi' />
               <label htmlFor="upi" className='font-bold'>Pay through BHIM/UPI</label>
               <p className='font-sm text-gray-600'>Convenience Fee: ₹10/- + GST</p>
             </div>
           </div>
 
         </div>
-
+<div>
+  <p className='font-bold text-xl m-4 mb-2'>Total fare is {fare} </p>
+</div>
 
         <div className='m-3'>
         <button  className="bg-white border border-black text-black text-lg font-bold px-4 py-2 rounded-lg mr-3">Back</button>
 
-        <button  onClick={handleContinue}  className="bg-orange-200  border border-black text-black text-lg font-bold px-4 py-2 rounded-lg">Continue</button>
+        <button  onClick={handleContinue}  className="bg-orange-200  border border-black text-black text-lg font-bold px-4 py-2 rounded-lg">Book</button>
         </div>
       </div>
     </div>

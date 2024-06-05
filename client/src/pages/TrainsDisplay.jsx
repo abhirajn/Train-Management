@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios';
 import TrainCard from '../components/TrainCard';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Navbar from '../components/Navbar';
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 export default function TrainsDisplay() {
   
@@ -11,6 +14,7 @@ export default function TrainsDisplay() {
   const to = searchParams.get('to');
   const date = searchParams.get('date');
 
+  const navigate = useNavigate();
 const [trains , setTrains] = useState([]);
 
     useEffect(()=>{
@@ -19,7 +23,7 @@ const [trains , setTrains] = useState([]);
           const resp =await axios.post(`${apiUrl}/api/getTrains`, {
             "from" : from,
             "to" : to
-          }).then((response)=>{
+          },{withCredentials: true}).then((response)=>{
             var arr = [];
             Object.keys(response.data).forEach((data)=>{
               arr.push(response.data[data]);
@@ -27,8 +31,15 @@ const [trains , setTrains] = useState([]);
             setTrains(arr);
             console.log(arr);
           }).catch(error => {
-            // Handle error
+            // console.log("hi")
+            toast.error("login first", {
+              position: "top-center",
+              autoClose: 1000,
+              onClose : () => navigate('/login')
+            })
             console.error(error);
+            
+            
           });
         }
       }
@@ -40,10 +51,11 @@ const [trains , setTrains] = useState([]);
 
   return (
     <div>
-
+<Navbar/>
 {trains.map((d)=>(
   <TrainCard prop={d} date={date} />
 ))}
+<ToastContainer/>
     </div>
   )
 }

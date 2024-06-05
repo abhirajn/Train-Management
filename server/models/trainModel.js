@@ -2,26 +2,36 @@ const db = require("../config/db")
 
 
 class Train{
-    constructor(trainNo , trainName , fromName , toName , totalCapacity , fromStationNumber , toStationNumber){
-        this.trainNo = trainNo;
+    constructor(trainName , trainNumber , fromStation , toStation , fromStationNumber , toStationNumber , startTime  ,duration, status,totalCapacity,fare){
         this.trainName = trainName;
-        this.fromName = fromName;
-        this.toName = toName;
-        this.totalCapacity = totalCapacity;
+        this.trainNumber = trainNumber;
+        this.fromStation = fromStation;
+        this.toStation = toStation;
         this.fromStationNumber = fromStationNumber;
         this.toStationNumber = toStationNumber;
+        this.startTime = startTime;
+        this.duration = duration;
+        this.status = status;
+        this.totalCapacity = totalCapacity;
+        this.fare = fare;
     }
+    
+
 
     async save(){
-        let sql = `INSERT INTO Trains (trainNo , trainName , fromName , toName , totalCapacity ,  fromStationNumber , toStationNumber)
+        let sql = `INSERT INTO Trains (trainName , trainNumber , fromStation , toStation , fromStationNumber , toStationNumber , startTime  ,duration, status,totalCapacity,fare)
         VALUES(
-            ${this.trainNo},
-            '${this.trainName}',
-            '${this.fromName}',
-            '${this.toName}',
-            ${this.totalCapacity},
-            ${this.fromStationNumber},
-            ${this.toStationNumber}
+        '${this.trainName}',
+        ${this.trainNumber},
+        '${this.fromStation}',
+        '${this.toStation}',
+        ${this.fromStationNumber},
+        ${this.toStationNumber},
+        '${this.startTime}',
+        '${this.duration}',
+        '${this.status}',
+        ${this.totalCapacity},
+        ${this.fare}
         );`
 
         const res = await db.execute(sql);
@@ -32,17 +42,17 @@ class Train{
     static async getAllBetweenTwo(from , to){
         let sql = `SELECT *
         FROM Trains
-        WHERE fromName = '${from}'
-        AND toName = '${to}';`
+        WHERE fromStation = '${from}'
+        AND toStation = '${to}';`
         
         return db.execute(sql);
     }
     
     static async getalltrainStataions(){
-        let sql = `SELECT fromName AS value
+        let sql = `SELECT fromStation AS value
         FROM trains
         UNION
-        SELECT toName
+        SELECT toStation
         FROM trains
         ORDER BY value;`
 
@@ -53,8 +63,31 @@ class Train{
     static async getFromNumber(fromName){
         let sql = `SELECT DISTINCT fromStationNumber
         FROM trains WHERE
-        fromName = "${fromName}";`
+        fromStation = "${fromName}";`
 
+        return db.execute(sql);
+    }
+
+    static async getTrainDetailsFromNumber(tno){
+        let sql= `SELECT * FROM Trains WHERE trainNumber = ${tno}`
+        return db.execute(sql);
+    }
+
+
+    static async updateTrainValues(trainName , trainNumber , fromStation , toStation , fromStationNumber , toStationNumber , startTime  ,duration, status,totalCapacity,fare){
+       console.log(trainNumber , typeof trainNumber)
+        let sql = `UPDATE Trains
+        SET trainName = '${trainName}',
+        fromStation = '${fromStation}',
+        toStation = '${toStation}',
+        fromStationNumber = ${fromStationNumber},
+        toStationNumber = ${toStationNumber},
+        startTime = '${startTime}', 
+        duration = '${duration}',
+        status = '${status}',
+        totalCapacity = ${totalCapacity},
+        fare = ${fare}
+        WHERE trainNumber = ${trainNumber};`
         return db.execute(sql);
     }
 }

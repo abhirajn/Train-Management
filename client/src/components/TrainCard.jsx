@@ -4,8 +4,12 @@ import { useNavigate } from 'react-router-dom';
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function TrainCard({prop , date}) {
-    console.log(prop)
+    // console.log(prop)
+    const[finalDate , setFinalDate] = useState('');
+    const[sDate , setSDate] = useState('');
+    const[finalTime , setFinalTime] = useState('');
     const datee = new Date(date); // Current date
+    
 const dayOfWeekNumber = datee.getDay();
 const dateofthemonth = datee.getDate();
 const monthoftheyear = datee.getMonth();
@@ -46,7 +50,7 @@ const navigate = useNavigate();
         const fun = async() => {
             const resp = await axios.post(`${apiUrl}/api/getfromNUmber`, {
                 "fromName" : prop.fromName
-            }).then((response)=>{
+            },{withCredentials: true }).then((response)=>{
                 // console.log(response.data.fromStationNumber)
                 setFromNumber(response.data.fromStationNumber);
             })
@@ -64,7 +68,7 @@ const navigate = useNavigate();
            "fromNumber" : fromNumber,
             "toNumber" : 0,
              "trainNo" : prop.trainNo
-               })
+               },{withCredentials: true })
                setTwo(temp.data.value)
      }
        }
@@ -81,7 +85,7 @@ const navigate = useNavigate();
             "fromNumber" : fromNumber,
              "toNumber" : 0,
               "trainNo" : prop.trainNo
-                })
+                },{withCredentials: true })
                 setThree(temp.data.value)
       }
         }
@@ -98,7 +102,7 @@ const navigate = useNavigate();
             "fromNumber" : fromNumber,
              "toNumber" : 0,
               "trainNo" : prop.trainNo
-                })
+                },{withCredentials: true })
                 setFour(temp.data.value)
       }
         }
@@ -115,7 +119,7 @@ const navigate = useNavigate();
             "fromNumber" : fromNumber,
              "toNumber" : 0,
               "trainNo" : prop.trainNo
-                })
+                },{withCredentials: true })
                 setFive(temp.data.value)
       }
         }
@@ -132,7 +136,7 @@ const navigate = useNavigate();
             "fromNumber" : fromNumber,
              "toNumber" : 0,
               "trainNo" : prop.trainNo
-                })
+                },{withCredentials: true })
                 setSix(temp.data.value)
       }
         }
@@ -149,7 +153,7 @@ const navigate = useNavigate();
             "fromNumber" : fromNumber,
              "toNumber" : 0,
               "trainNo" : prop.trainNo
-                })
+                },{withCredentials: true })
                 setOne(temp.data.value)
       }
         }
@@ -160,26 +164,50 @@ const [selectedDate , setSelectedDate] = useState(datee);
 // console.log(selectedDate)
 
 const handleSubmit = () => {
-    navigate(`/bookTicket?from=${prop.fromName}&to=${prop.toName}&date=${selectedDate}&trainNo=${prop.trainNo}&trainName=${prop.trainName}&FromStationNumber=${prop.FromStationNumber}&toStationNumber=${prop.toStationNumber}`);
+    navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.FromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
 }
+
+useEffect(()=>{
+  if(date){
+    const tempdate = new Date(date);
+  const stringdate = tempdate.toISOString().substring(0, 10);
+  // console.log(strindate)
+      const startDateTime = new Date(`${stringdate}T${prop.startTime}`);
+      
+      const [hours, minutes] = prop.duration.split(':').map(Number);
+      
+      const finalDateTime = new Date(startDateTime);
+      finalDateTime.setHours(finalDateTime.getHours() + hours);
+      finalDateTime.setMinutes(finalDateTime.getMinutes() + minutes);
+  
+      const finalDate = finalDateTime.toISOString().split('T')[0];
+      const finalTime = finalDateTime.toTimeString().split(' ')[0].substring(0, 5);
+  // console.log(finalDate , finalTime);
+  const sumnedate = new Date(finalDate)
+  setFinalDate(sumnedate.toString());
+  setFinalTime(finalTime);
+  setSDate(datee.toString())
+  }
+},[])
+
 
   return (
     <div className='ml-80 mt-5 mr-2'>
          <div className="bg-white text-black p-2 rounded-lg  mx-auto">
       <div className="flex justify-between items-center bg-gray-100 h-10">
         <div>
-          <h2 className="text-xl font-bold">{prop.trainName } ({prop.trainNo})</h2>
+          <h2 className="text-xl font-bold">{prop.trainName } ({prop.trainNumber})</h2>
         </div>
         <div className="text-right mx-auto">
           <span className="block">Runs On: M T W T F S S</span>
         </div>
       </div>
       <div className=" flex justify-between items-center mx-4">
-        <div className="text-xl "><span className='font-bold'>00:00</span> | {prop.fromName} |  {dayOfWeek}, {dateofthemonth} {monthName}</div>
+        <div className="text-xl "><span className='font-bold'>{prop.startTime}</span> | {prop.fromStation} |  {sDate.substring(0,3)}, {sDate.substring(7,10)} {sDate.substring(3,7)}</div>
         <div className="mt-4 text-center">
-        <span className="block">-- 04:14 --</span>
+        <span className="block">-- {prop.duration} --</span>
       </div>
-        <div className="text-xl "><span className='font-bold'>00:00</span> | {prop.toName} |  {dayOfWeek}, {dateofthemonth} {monthName}</div>
+        <div className="text-xl "><span className='font-bold'>{finalTime}</span> | {prop.toStation} |  {finalDate.substring(0,3)}, {finalDate.substring(7,10)} {finalDate.substring(3,7)}</div>
       </div>
       
       <div className="mt-4 m-1 ml-4 ">

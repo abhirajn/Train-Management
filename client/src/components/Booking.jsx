@@ -9,6 +9,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function Booking() {
@@ -67,8 +69,14 @@ const handledatChange = (event , newValue) => {
 }
 const today = dayjs();
 const handleClick = () => {
+if(from.length == 0 || to.length == 0){
+  toast.error("enter from and to address",{
+    position : 'top-left'
+  })
+}else{
+  navigate(`/trains?from=${from}&to=${to}&date=${date}`);
+}
 
-navigate(`/trains?from=${from}&to=${to}&date=${date}`);
 }
 
   return (
@@ -138,6 +146,7 @@ navigate(`/trains?from=${from}&to=${to}&date=${date}`);
     
     </div>
         </div>
+        <ToastContainer/>
     </div>
   )
 }
