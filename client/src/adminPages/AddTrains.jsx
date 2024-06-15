@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import AdminNavbar from '../adminComponents/AdminNavbar';
+import Sidebar from '../adminComponents/Sidebar';
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 const AddTrains = () => {
@@ -63,8 +64,9 @@ const AddTrains = () => {
   };
 
   return (
-    <div>
-        <AdminNavbar/>
+    <div className='min-h-screen bg-gray-100 flex'>
+        {/* <AdminNavbar/> */}
+        <Sidebar/>
     <div className="max-w-lg mx-auto mt-10 p-6 border border-gray-300 rounded-lg bg-white shadow-md">
       <h2 className="text-2xl font-bold text-center mb-6">Add Train Details</h2>
       <form onSubmit={handleSubmit}>

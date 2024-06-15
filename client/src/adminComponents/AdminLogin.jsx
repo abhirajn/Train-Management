@@ -21,15 +21,15 @@ const[pass , setPass] = useState('');
     e.preventDefault();
     
         try {
-            // const resp =  await axios.post(`${apiUrl}/user/login`, {
-            //     "username" : email,
-            //     "password" : pass
-            //   },{
-            //     withCredentials: true 
-            //   })     
-            //   toast.success("User Logged in");
-            //   setLogged(true)
-            //   navigate('/')
+            const resp =  await axios.post(`${apiUrl}/user/login`, {
+                "username" : email,
+                "password" : pass
+              },{
+                withCredentials: true 
+              })     
+              toast.success("User Logged in");
+              // setLogged(true)
+              navigate('/admin/home')
         } catch (error) {
             // console.log("HI", error.response.data.message)
             toast.error(error.response.data.message);
@@ -44,7 +44,7 @@ const[pass , setPass] = useState('');
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">ADMIN LOGIN</h2>
         <form className="space-y-4" onSubmit={handleSubmit}>
         {/* <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">Name</label>

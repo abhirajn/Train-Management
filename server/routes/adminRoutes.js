@@ -16,9 +16,9 @@ router.post('/addtrain' , async(req,res,next)=>{
 
 
 router.post('/getTrainFromNumber', async(req,res)=>{
-   const {trainNumber} = req.body;
+   const {trainNumber,fromStationNumber ,toStationNumber} = req.body;
    try {
-    const resp = await Train.getTrainDetailsFromNumber(trainNumber);
+    const resp = await Train.getTrainDetailsFromNumber(trainNumber,fromStationNumber ,toStationNumber);
     res.status(200).send(resp)
    } catch (error) {
     res.status(400).send("eror")
@@ -31,6 +31,19 @@ router.post('/updateTrainInfo', async(req,res)=>{
     const {trainName , trainNumber , fromStation , toStation , fromStationNumber , toStationNumber , startTime  ,duration, status,totalCapacity,fare} = req.body;
     try {
         const resp = await Train.updateTrainValues(trainName , trainNumber , fromStation , toStation , fromStationNumber , toStationNumber , startTime  ,duration, status,totalCapacity,fare);
+        res.status(200).send("updated")
+    } catch (error) {
+        console.log(error)
+        res.status(400).send("error")
+    }
+})
+
+
+router.post('/updateAllTrainInfo', async(req,res)=>{
+    console.log(req.body)
+    const {trainName , trainNumber , fromStation , toStation , fromStationNumber , toStationNumber , startTime  ,duration, status,totalCapacity,fare} = req.body;
+    try {
+        const resp = await Train.updateAllTrainValues(trainName , trainNumber , fromStation , toStation , fromStationNumber , toStationNumber , startTime  ,duration, status,totalCapacity,fare);
         res.status(200).send("updated")
     } catch (error) {
         console.log(error)

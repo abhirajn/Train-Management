@@ -14,6 +14,7 @@ import axios from 'axios'
 import AddTrains from './adminPages/AddTrains'
 import AdminHome from './adminPages/AdminHome'
 import EditTrain from './adminPages/EditTrain'
+import AdminLogin from './adminComponents/AdminLogin'
 // import AdminHome from './adminpages/AdminHome'
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 // import  'dotenv.config()'
@@ -39,6 +40,7 @@ function App() {
         <Route path='/admin/home' element={<AdminHome/>}/>
         <Route path='/admin/addTrain' element={<AddTrains/>} />
         <Route path='/admin/editTrain' element={<EditTrain/>} />
+        <Route path='/admin/login' element={<AdminLogin/>} />
       </Routes>
     </BrowserRouter>
     </>

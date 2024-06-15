@@ -68,8 +68,8 @@ class Train{
         return db.execute(sql);
     }
 
-    static async getTrainDetailsFromNumber(tno){
-        let sql= `SELECT * FROM Trains WHERE trainNumber = ${tno}`
+    static async getTrainDetailsFromNumber(tno,fromStationNumber ,toStationNumber){
+        let sql= `SELECT * FROM Trains WHERE trainNumber = ${tno} AND fromStationNumber = ${fromStationNumber} AND toStationNumber = ${toStationNumber}`
         return db.execute(sql);
     }
 
@@ -87,9 +87,26 @@ class Train{
         status = '${status}',
         totalCapacity = ${totalCapacity},
         fare = ${fare}
-        WHERE trainNumber = ${trainNumber};`
+        WHERE trainNumber = ${trainNumber} AND fromStationNumber = ${fromStationNumber} AND toStationNumber = ${toStationNumber};`
         return db.execute(sql);
     }
+    
+    static async updateAllTrainValues(trainName , trainNumber , fromStation , toStation , fromStationNumber , toStationNumber , startTime  ,duration, status,totalCapacity,fare){
+        console.log(trainNumber , typeof trainNumber)
+         let sql = `UPDATE Trains
+         SET trainName = '${trainName}',
+         fromStation = '${fromStation}',
+         toStation = '${toStation}',
+         fromStationNumber = ${fromStationNumber},
+         toStationNumber = ${toStationNumber},
+         startTime = '${startTime}', 
+         duration = '${duration}',
+         status = '${status}',
+         totalCapacity = ${totalCapacity},
+         fare = ${fare}
+         WHERE trainNumber = ${trainNumber};`
+         return db.execute(sql);
+     }
 }
 
 module.exports = Train;

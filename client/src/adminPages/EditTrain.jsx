@@ -3,11 +3,15 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import AdminNavbar from '../adminComponents/AdminNavbar';
 import { ToastContainer, toast } from 'react-toastify';
+import Sidebar from '../adminComponents/Sidebar';
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 const EditTrain = () => {
     const navigate = useNavigate();
     const[tno , setTno] = useState();
+    const[frnum , setFrnum] = useState();
+    const[tonum , setTonum] = useState();
+    const[checked , setChecked] = useState(false);
   const [trainDetails, setTrainDetails] = useState({
     trainName: '',
     trainNumber: '',
@@ -30,7 +34,8 @@ const EditTrain = () => {
   const handleSubmit = async(e) => {
     e.preventDefault();
     // console.log('Train Details Submitted:', trainDetails);
-    const resp = await axios.post(`${apiUrl}/admin/updateTrainInfo`,{
+    if(checked){
+      const resp = await axios.post(`${apiUrl}/admin/updateAllTrainInfo`,{
         trainName: trainDetails.trainName,
     trainNumber: trainDetails.trainNumber,
     fromStation: trainDetails.fromStation,
@@ -63,12 +68,52 @@ const EditTrain = () => {
    }).catch((err)=>{
         console.log(err)
     })
+    }
+    else{
+      const resp = await axios.post(`${apiUrl}/admin/updateTrainInfo`,{
+        trainName: trainDetails.trainName,
+    trainNumber: trainDetails.trainNumber,
+    fromStation: trainDetails.fromStation,
+    toStation: trainDetails.toStation,
+    fromStationNumber: trainDetails.fromStationNumber,
+    toStationNumber: trainDetails.toStationNumber,
+    startTime: trainDetails.startTime,
+    duration: trainDetails.duration,
+    status: trainDetails.status,
+    totalCapacity: trainDetails.totalCapacity,
+    fare: trainDetails.fare
+   }, {withCredentials : true} )
+   .then(()=>{
+    setTrainDetails({
+        trainName: '',
+        trainNumber: '',
+        fromStation: '',
+        toStation: '',
+        fromStationNumber: '',
+        toStationNumber: '',
+        startTime: '',
+        duration: '',
+        status: 'Running',
+        totalCapacity: '',
+        fare:''
+    })
+    toast.success("train updated")
+    // navigate('/admin/home')
+    // console.log(resp)
+   }).catch((err)=>{
+        console.log(err)
+    })
+    }
+  
   };
 
   const handleClick = async(e) =>{
     try {
+      
         const resp = await axios.post(`${apiUrl}/admin/getTrainFromNumber`,{
-            trainNumber : tno
+            trainNumber : tno,
+            fromStationNumber : frnum,
+            toStationNumber : tonum
         },{withCredentials : true}).then((res)=>{
             setTrainDetails({
                 trainName: res.data[0][0].trainName,
@@ -103,8 +148,9 @@ const EditTrain = () => {
     }
   }
   return (
-    <div>
-        <AdminNavbar/>
+    <div className='min-h-screen bg-gray-100 flex'>
+        {/* <AdminNavbar/> */}
+        <Sidebar/>
         <div className='flex'>
         <div className='ml-40 mr-20 my-40'>
         <div className="mb-4">
@@ -115,6 +161,30 @@ const EditTrain = () => {
             name="trainName"
             value={tno}
             onChange={(e)=>{setTno(e.target.value)}}
+            required
+            className="w-full px-3 py-2 border-2 border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="trainName" className="block text-gray-700 mb-2">Enter From Number:</label>
+          <input
+            type="text"
+            id="fromtrainName"
+            name="fromtrainName"
+            value={frnum}
+            onChange={(e)=>{setFrnum(e.target.value)}}
+            required
+            className="w-full px-3 py-2 border-2 border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="trainName" className="block text-gray-700 mb-2">Enter To Number:</label>
+          <input
+            type="text"
+            id="totrainName"
+            name="totrainName"
+            value={tonum}
+            onChange={(e)=>{setTonum(e.target.value)}}
             required
             className="w-full px-3 py-2 border-2 border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
@@ -273,9 +343,22 @@ const EditTrain = () => {
             className="w-full px-3 py-2 border-2 border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
+        <div className='flex'>
+        <div className="mb-4 h-2">
+          <label htmlFor="totalCapacity" className="block text-gray-700 mb-2">Update:</label>
+          <input
+            type="checkbox"
+            id="fare"
+            name="fare"
+            onClick={()=>{setChecked(!checked)}}
+            required
+            className="w-10  border-2 border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
         <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-700">
           Update Train
         </button>
+        </div>
       </form>
     </div>
     </div>
