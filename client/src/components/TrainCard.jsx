@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function TrainCard({prop , date}) {
@@ -48,10 +49,11 @@ const navigate = useNavigate();
 
     useEffect(()=>{
         const fun = async() => {
+          console.log(prop)
             const resp = await axios.post(`${apiUrl}/api/getfromNUmber`, {
-                "fromName" : prop.fromName
+                "fromName" : prop.fromStation
             },{withCredentials: true }).then((response)=>{
-                // console.log(response.data.fromStationNumber)
+                console.log(response.data.fromStationNumber)
                 setFromNumber(response.data.fromStationNumber);
             })
         }
@@ -59,7 +61,9 @@ const navigate = useNavigate();
     },[])
 
     useEffect(()=>{
+
        const fun = async() => {
+       
      if(fromNumber != null){
         const tempdate = `${date2.getDate()}-${date2.getMonth()+1}-${date2.getFullYear()}`
         // console.log(tempdate)
@@ -67,7 +71,7 @@ const navigate = useNavigate();
            "trainDate" : tempdate,
            "fromNumber" : fromNumber,
             "toNumber" : 0,
-             "trainNo" : prop.trainNo
+             "trainNo" : prop.trainNumber
                },{withCredentials: true })
                setTwo(temp.data.value)
      }
@@ -84,7 +88,7 @@ const navigate = useNavigate();
             "trainDate" : tempdate,
             "fromNumber" : fromNumber,
              "toNumber" : 0,
-              "trainNo" : prop.trainNo
+              "trainNo" : prop.trainNumber
                 },{withCredentials: true })
                 setThree(temp.data.value)
       }
@@ -101,7 +105,7 @@ const navigate = useNavigate();
             "trainDate" : tempdate,
             "fromNumber" : fromNumber,
              "toNumber" : 0,
-              "trainNo" : prop.trainNo
+              "trainNo" : prop.trainNumber
                 },{withCredentials: true })
                 setFour(temp.data.value)
       }
@@ -118,7 +122,7 @@ const navigate = useNavigate();
             "trainDate" : tempdate,
             "fromNumber" : fromNumber,
              "toNumber" : 0,
-              "trainNo" : prop.trainNo
+              "trainNo" : prop.trainNumber
                 },{withCredentials: true })
                 setFive(temp.data.value)
       }
@@ -135,7 +139,7 @@ const navigate = useNavigate();
             "trainDate" : tempdate,
             "fromNumber" : fromNumber,
              "toNumber" : 0,
-              "trainNo" : prop.trainNo
+              "trainNo" : prop.trainNumber
                 },{withCredentials: true })
                 setSix(temp.data.value)
       }
@@ -152,7 +156,7 @@ const navigate = useNavigate();
             "trainDate" : tempdate,
             "fromNumber" : fromNumber,
              "toNumber" : 0,
-              "trainNo" : prop.trainNo
+              "trainNo" : prop.trainNumber
                 },{withCredentials: true })
                 setOne(temp.data.value)
       }
@@ -164,7 +168,43 @@ const [selectedDate , setSelectedDate] = useState(datee);
 // console.log(selectedDate)
 
 const handleSubmit = () => {
-    navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.FromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
+    if(selectedDate.getDate() == dateofthemonth){
+         if(prop.totalCapacity - one <= 0){
+          toast.error("No seats left in the train on this date")
+         }else{
+          navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.fromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
+         }
+    }else if(selectedDate.getDate() == date2.getDate()){
+      if(prop.totalCapacity - two <= 0){
+        toast.error("No seats left in the train on this date")
+       }else{
+        navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.fromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
+       }
+    }else if(selectedDate.getDate() == date3.getDate()){
+      if(prop.totalCapacity - three <= 0){
+        toast.error("No seats left in the train on this date")
+       }else{
+        navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.fromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
+       }
+    }else if(selectedDate.getDate() == date4.getDate()){
+      if(prop.totalCapacity - four <= 0){
+        toast.error("No seats left in the train on this date")
+       }else{
+        navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.fromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
+       }
+    }else if(selectedDate.getDate() == date5.getDate()){
+      if(prop.totalCapacity - five <= 0){
+        toast.error("No seats left in the train on this date")
+       }else{
+        navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.fromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
+       }
+    }else if(selectedDate.getDate() == date6.getDate()){
+      if(prop.totalCapacity - six <= 0){
+        toast.error("No seats left in the train on this date")
+       }else{
+        navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.fromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
+       }
+    }
 }
 
 useEffect(()=>{
@@ -211,12 +251,12 @@ useEffect(()=>{
       </div>
       
       <div className="mt-4 m-1 ml-4 ">
-        <button onClick={()=>{setSelectedDate(datee)}}  className= {selectedDate.getDate() == dateofthemonth ? " border-2 border-indigo-600  bg-gray-300  mr-3 text-left p-2 rounded  pr-9" : "border-2  bg-gray-300  mr-3 text-left p-2 rounded  pr-9"}>  <span className='text-md font-bold'> {dayOfWeek}, {dateofthemonth} {monthsoftheyear[datee.getMonth()]}</span> <br></br> <span className='text-lg font-bold text-green-500'>AVAILABLE {prop.totalCapacity - one}</span> </button>
-        <button onClick={()=>{setSelectedDate(date2)}} className= {selectedDate.getDate() == date2.getDate() ? " border-2 border-indigo-600  bg-gray-300  mr-3 text-left p-2 rounded  pr-9" : "border-2  bg-gray-300  mr-3 text-left p-2 rounded  pr-9"}>  <span className='text-md font-bold'> {daysOfWeek[date2.getDay()]}, {date2.getDate()} {monthsoftheyear[date2.getMonth()]}</span> <br></br> <span className='text-lg font-bold text-green-500'>AVAILABLE {prop.totalCapacity - two}</span> </button>
-        <button onClick={()=>{setSelectedDate(date3)}} className= {selectedDate.getDate() == date3.getDate() ? " border-2 border-indigo-600  bg-gray-300  mr-3 text-left p-2 rounded  pr-9" : "border-2  bg-gray-300  mr-3 text-left p-2 rounded  pr-9"}>  <span className='text-md font-bold'> {daysOfWeek[date3.getDay()]}, {date3.getDate()} {monthsoftheyear[date3.getMonth()]}</span> <br></br> <span className='text-lg font-bold text-green-500'>AVAILABLE {prop.totalCapacity - three}</span> </button>
-        <button onClick={()=>{setSelectedDate(date4)}} className= {selectedDate.getDate() == date4.getDate() ? " border-2 border-indigo-600  bg-gray-300  mr-3 text-left p-2 rounded  pr-9" : "border-2  bg-gray-300  mr-3 text-left p-2 rounded  pr-9"}>  <span className='text-md font-bold'> {daysOfWeek[date4.getDay()]}, {date4.getDate()} {monthsoftheyear[date4.getMonth()]}</span> <br></br> <span className='text-lg font-bold text-green-500'>AVAILABLE {prop.totalCapacity - four}</span> </button>
-        <button onClick={()=>{setSelectedDate(date5)}} className= {selectedDate.getDate() == date5.getDate() ? " border-2 border-indigo-600  bg-gray-300  mr-3 text-left p-2 rounded  pr-9" : "border-2  bg-gray-300  mr-3 text-left p-2 rounded  pr-9"}>  <span className='text-md font-bold'> {daysOfWeek[date5.getDay()]}, {date5.getDate()} {monthsoftheyear[date5.getMonth()]}</span> <br></br> <span className='text-lg font-bold text-green-500'>AVAILABLE {prop.totalCapacity - five}</span> </button>
-        <button onClick={()=>{setSelectedDate(date6)}} className= {selectedDate.getDate() == date6.getDate() ? " border-2 border-indigo-600  bg-gray-300  mr-3 text-left p-2 rounded  pr-9" : "border-2  bg-gray-300  mr-3 text-left p-2 rounded  pr-9"}>  <span className='text-md font-bold'> {daysOfWeek[date6.getDay()]}, {date6.getDate()} {monthsoftheyear[date6.getMonth()]}</span> <br></br> <span className='text-lg font-bold text-green-500'>AVAILABLE {prop.totalCapacity - six}</span> </button>
+        <button onClick={()=>{setSelectedDate(datee)}}  className= {selectedDate.getDate() == dateofthemonth && prop.totalCapacity - one > 0 ? " border-2 border-indigo-600  bg-gray-300  mr-3 text-left p-2 rounded  pr-9" : "border-2  bg-gray-300 border-red-600 mr-3 text-left p-2 rounded  pr-9 text-red-400"}>  <span className='text-md font-bold'> {dayOfWeek}, {dateofthemonth} {monthsoftheyear[datee.getMonth()]}</span> <br></br> <span className={prop.totalCapacity - one > 0 ?'text-lg font-bold text-green-500' :'text-lg font-bold text-red-500 '}>AVAILABLE {prop.totalCapacity - one}</span> </button>
+        <button onClick={()=>{setSelectedDate(date2)}} className= {selectedDate.getDate() == date2.getDate()  && prop.totalCapacity - two > 0 ? " border-2 border-indigo-600  bg-gray-300  mr-3 text-left p-2 rounded  pr-9" : "border-2  bg-gray-300  mr-3 text-left p-2 rounded  pr-9"}>  <span className='text-md font-bold'> {daysOfWeek[date2.getDay()]}, {date2.getDate()} {monthsoftheyear[date2.getMonth()]}</span> <br></br> <span className={prop.totalCapacity - two > 0 ?'text-lg font-bold text-green-500' :'text-lg font-bold text-red-500 '} >AVAILABLE {prop.totalCapacity - two}</span> </button>
+        <button onClick={()=>{setSelectedDate(date3)}} className= {selectedDate.getDate() == date3.getDate()  && prop.totalCapacity - three > 0 ? " border-2 border-indigo-600  bg-gray-300  mr-3 text-left p-2 rounded  pr-9" : "border-2  bg-gray-300  mr-3 text-left p-2 rounded  pr-9"}>  <span className='text-md font-bold'> {daysOfWeek[date3.getDay()]}, {date3.getDate()} {monthsoftheyear[date3.getMonth()]}</span> <br></br> <span className={prop.totalCapacity - three > 0 ?'text-lg font-bold text-green-500' :'text-lg font-bold text-red-500 '} >AVAILABLE {prop.totalCapacity - three}</span> </button>
+        <button onClick={()=>{setSelectedDate(date4)}} className= {selectedDate.getDate() == date4.getDate()  && prop.totalCapacity - four > 0 ? " border-2 border-indigo-600  bg-gray-300  mr-3 text-left p-2 rounded  pr-9" : "border-2  bg-gray-300  mr-3 text-left p-2 rounded  pr-9"}>  <span className='text-md font-bold'> {daysOfWeek[date4.getDay()]}, {date4.getDate()} {monthsoftheyear[date4.getMonth()]}</span> <br></br> <span className={prop.totalCapacity - four > 0 ?'text-lg font-bold text-green-500' :'text-lg font-bold text-red-500 '} >AVAILABLE {prop.totalCapacity - four}</span> </button>
+        <button onClick={()=>{setSelectedDate(date5)}} className= {selectedDate.getDate() == date5.getDate()  && prop.totalCapacity - five > 0 ? " border-2 border-indigo-600  bg-gray-300  mr-3 text-left p-2 rounded  pr-9" : "border-2  bg-gray-300  mr-3 text-left p-2 rounded  pr-9"}>  <span className='text-md font-bold'> {daysOfWeek[date5.getDay()]}, {date5.getDate()} {monthsoftheyear[date5.getMonth()]}</span> <br></br> <span className={prop.totalCapacity - five > 0 ?'text-lg font-bold text-green-500' :'text-lg font-bold text-red-500 '} >AVAILABLE {prop.totalCapacity - five}</span> </button>
+        <button onClick={()=>{setSelectedDate(date6)}} className= {selectedDate.getDate() == date6.getDate()  && prop.totalCapacity - six > 0 ? " border-2 border-indigo-600  bg-gray-300  mr-3 text-left p-2 rounded  pr-9" : "border-2  bg-gray-300  mr-3 text-left p-2 rounded  pr-9"}>  <span className='text-md font-bold'> {daysOfWeek[date6.getDay()]}, {date6.getDate()} {monthsoftheyear[date6.getMonth()]}</span> <br></br> <span className={prop.totalCapacity - six > 0 ?'text-lg font-bold text-green-500' :'text-lg font-bold text-red-500 '} >AVAILABLE {prop.totalCapacity - six}</span> </button>
         
       </div>
       

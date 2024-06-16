@@ -5,8 +5,9 @@ import TrainCard from '../components/TrainCard';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '../components/Navbar';
+import '../assets/style.css'
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
-export default function TrainsDisplay() {
+export default function TrainsDisplay({logged,setLogged}) {
   
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -50,8 +51,8 @@ const [trains , setTrains] = useState([]);
   
 
   return (
-    <div>
-<Navbar/>
+    <div className='w-full h-screen home'>
+<Navbar logged={logged} setLogged={setLogged} />
 {trains.map((d)=>(
   <TrainCard prop={d} date={date} />
 ))}

@@ -1,8 +1,9 @@
-body{
+.home{
+    /* background-position: 60%; */
     background-image: url("https://www.financialexpress.com/wp-content/uploads/2024/03/vande-bharat-2.jpg");
    
-    background-repeat: no-repeat;
+    /* background-repeat: no-repeat; */
     background-size: 100% 740px;
     background-attachment: fixed;
-    /* background-position: right; */
+    /* background-position: 50% 70%; */
   } 

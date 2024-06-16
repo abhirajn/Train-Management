@@ -7,7 +7,9 @@ const router = express.Router();
 const secretKey = "abhi"
 router.post('/bookticket' , async(req,res,next)=>{
     // console.log(req.body)
-    const {userId ,pnrNumber , trainNo , trainName , fromName , toName  , fromStationNumber , toStationNumber , trainDate , passengerNames , passengerAge , passengerGender , totalTickets} = req.body;
+    const {userId  , trainNo , trainName , fromName , toName  , fromStationNumber , 
+      toStationNumber  , passengerNames , passengerAge , passengerGender , totalTickets, fromDate, 
+      toDate ,fromTime , toTime,fare ,ticketStatus} = req.body;
     const token = req.cookies.token;
     console.log(token)
     if (!token) {
@@ -18,14 +20,16 @@ router.post('/bookticket' , async(req,res,next)=>{
           return res.status(401).json({ message: 'Token is not valid' });
         }
       })
-    const ticket = new Ticket(userId ,pnrNumber , trainNo , trainName , fromName , toName  , fromStationNumber , toStationNumber , trainDate , passengerNames , passengerAge , passengerGender , totalTickets);
+    const ticket = new Ticket(userId  , trainNo , trainName , fromName , toName  , fromStationNumber , 
+      toStationNumber  , passengerNames , passengerAge , passengerGender , totalTickets, fromDate, 
+      toDate ,fromTime , toTime,fare ,ticketStatus);
     await ticket.bookTicket();
     res.send("succesfully ticket p;purchased");
 
 })
 
 router.post('/getavailableSeats' , async(req ,res ,next)=>{
-
+// console.log('hhi')
     const {trainDate  , fromNumber , toNumber , trainNo} = req.body;
     const token = req.cookies.token;
     // console.log(token)

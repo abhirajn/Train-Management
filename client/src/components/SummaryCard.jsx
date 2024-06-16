@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
 import SummaryPassInfo from './SummaryPassInfo';
 import ReCaptcha from './ReCaptcha';
+import { useNavigate } from 'react-router-dom';
 
 export default function SummaryCard({state}) {
-  console.log(state)
+  // console.log(state)
   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', ' Fri', 'Sat'];
   const monthsoftheyear = ['Jan' , 'Feb', 'Mar' ,'April', 'May','Jun','Jul','Aug','Sep','Oct','Nov','Dec' ]
   const date = new Date(state.trainDate);
   var pass = state.passengerNames.split(",");
   var passgen = state.passengerGender.split(",");
   var passage = state.passengerAge.split(",");
-
+const navigate = useNavigate()
   const [verified, setVerified] = useState(false);
 
   const handleCaptchaChange = (value) => {
@@ -113,7 +114,9 @@ if(state.selection == "1"){
         <button type="submit" className="bg-white border border-black text-black text-sm font-semibold px-4 py-2 rounded-lg mr-3">Submit</button>
       </form></div> */}
 
-      <button  className="bg-white border border-black text-black text-lg font-bold px-8 py-1 rounded-lg mr-3 my-5">Book</button>
+      <button onClick={()=>{
+          navigate('/payment', { state: state });
+      }} className="bg-white border border-black text-black text-lg font-bold px-8 py-1 rounded-lg mr-3 my-5">Pay and Continue</button>
     </div>
     </div>
   )

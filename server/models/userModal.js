@@ -23,15 +23,19 @@ class User{
     }
 
     static async checkIfUserExist(username){
-        let sql = `SELECT * FROM Users WHERE username = '${username}'`;
+        let sql = `SELECT * FROM Users WHERE username = '${username}';`
         return db.execute(sql);
     }
 
     static async checkEmailMathches(username){
-        let sql = `SELECT password FROM Users WHERE username = '${username}'`;
+        let sql = `SELECT password FROM Users WHERE username = '${username}';`
         return db.execute(sql);
     }
 
+    static async getPhonebyEmail(username){
+        let sql = `SELECT phone FROM Users WHERE username = '${username}';`
+        return db.execute(sql);
+    }
     
 
 }

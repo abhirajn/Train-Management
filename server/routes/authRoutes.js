@@ -115,5 +115,30 @@ router.get('/logout',async (req, res) => {
   res.status(200).send("successfully cleared cookie")
 });
 
+router.get('/getEmailandPhone' , async(req,res)=>{
+  const token = req.cookies.token;
+// console.log(token)
+if (!token) {
+  // console.log("hi2")
+  return res.status(401).json({ message: 'No token, authorization denied' });
+}
+  jwt.verify(token, secretKey, async(err, decoded) => {
+    // console.log(decoded)
+    if (err) {
+      // console.log("hi4")
+      return res.status(401).json({ message: 'Token is not valid' });
+    }else{
+      // console.log("hi5")/
+      const resp = await User.getPhonebyEmail(decoded.userId).then((response)=>{
+        // console.log("response",response[0][0].phone)
+        return res.status(200).json({"id" : decoded.userId , "phone" : response[0][0].phone});
+      }).catch(()=>{
+        return res.status(401).json({ message: 'Phone number not found' });
+      })
+      
+    }
+    
+})
+})
  
 module.exports = router;

@@ -2,38 +2,48 @@ const db = require("../config/db")
 
 
 class Ticket{
-    constructor(userId ,pnrNumber , trainNo , trainName , fromName , toName  , fromStationNumber , toStationNumber , trainDate , passengerNames , passengerAge , passengerGender , totalTickets){
+    constructor(userId  , trainNo , trainName , fromName , toName  , fromStationNumber , 
+        toStationNumber  , passengerNames , passengerAge , passengerGender , totalTickets, fromDate, 
+        toDate ,fromTime , toTime,fare ,ticketStatus){
         this.userId = userId;
-        this.pnrNumber = pnrNumber;
         this.trainNo = trainNo;
         this.trainName = trainName;
         this.fromName = fromName;
         this.toName = toName;
         this.fromStationNumber = fromStationNumber;
         this.toStationNumber = toStationNumber;
-        this.trainDate = trainDate;
         this.passengerNames = passengerNames;
         this.passengerAge = passengerAge;
         this.passengerGender = passengerGender;
         this.totalTickets = totalTickets;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+        this.fromTime = fromTime;
+        this.toTime = toTime;
+        this.fare = fare;
+        this.ticketStatus = ticketStatus;
     }
 
     async bookTicket(){
-        let sql = `INSERT INTO Tickets (userId ,pnrNumber , trainNo , trainName , fromName , toName  , fromStationNumber , toStationNumber , trainDate , passengerNames , passengerAge , passengerGender , totalTickets)
+        let sql = `INSERT INTO Tickets (userId  , trainNo , trainName , fromName , toName  , fromStationNumber , toStationNumber  , passengerNames , passengerAge , passengerGender , totalTickets, fromDate, toDate ,fromTime , toTime,fare,ticketStatus)
         VALUES(
             '${this.userId}',
-            ${this.pnrNumber},
             ${this.trainNo},
             '${this.trainName}',
             '${this.fromName}',
             '${this.toName}',
             ${this.fromStationNumber},
             ${this.toStationNumber},
-            '${this.trainDate}',
             '${this.passengerNames}',
             '${this.passengerAge}',
             '${this.passengerGender}',
-            ${this.totalTickets}
+            ${this.totalTickets},
+            '${this.fromDate}',
+            '${this.toDate}',
+            '${this.fromTime}',
+            '${this.toTime}',
+            ${this.fare},
+            '${this.ticketStatus}'
         );`
 
         const res = await db.execute(sql);
@@ -42,10 +52,23 @@ class Ticket{
 
 
     static async get_No_BookedTickets(trainDate  , fromNumber , toNumber , trainNo){
-        // console.log(trainDate , fromNumber ,  trainNo)
+        // console.log(trainNo)
+        let dateParts = trainDate.split('-');
+
+// Rearrange into "YYYY-MM-DD"
+let formattedDateString = `${dateParts[2]}-${dateParts[1].padStart(2, '0')}-${dateParts[0].padStart(2, '0')}`;
+
+// Create a Date object
+let dateObject = new Date(formattedDateString);
+
+// Use the toString method
+let dateStringOutput = dateObject.toString().substring(0,11);
+
+// console.log(dateStringOutput);
+
         let sql = `SELECT SUM(totalTickets) AS total_tickets 
         FROM Tickets
-        WHERE trainDate = '${trainDate}'
+        WHERE fromDate = '${dateStringOutput}'
         AND trainNo = ${trainNo}
         AND toStationNumber > ${fromNumber};`
         

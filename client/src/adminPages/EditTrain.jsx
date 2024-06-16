@@ -351,7 +351,6 @@ const EditTrain = () => {
             id="fare"
             name="fare"
             onClick={()=>{setChecked(!checked)}}
-            required
             className="w-10  border-2 border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>

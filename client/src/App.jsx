@@ -39,7 +39,7 @@ function App() {
         <Route path='/ticketSummary' element={<SummaryPage  logged={logged} setLogged={setLogged}/>}/>
         <Route path='/login' element={<Login logged={logged} setLogged={setLogged} />}/>
         <Route path='/register' element={<Registeruser  logged={logged} setLogged={setLogged}/>}/>
-        <Route path='/payment' element={<Payment/>} />
+        <Route path='/payment' element={<Payment logged={logged} setLogged={setLogged} />} />
         <Route path='/admin/home' element={<AdminHome/>}/>
         <Route path='/admin/addTrain' element={<AddTrains/>} />
         <Route path='/admin/editTrain' element={<EditTrain/>} />

@@ -80,7 +80,7 @@ if(from.length == 0 || to.length == 0){
 }
 
   return (
-    <div>
+    <div className=''>
         <div className='lg:ml-40 lg:mt-20  h-auto w-6/12 bg-white' style={{}}>
            <div className='h-20 p-4 font-bold text-4xl w-6/12 '> <h1 style={{color:""}} >BOOK TICKET</h1></div>
            <div style={{display:'flex'}}>
