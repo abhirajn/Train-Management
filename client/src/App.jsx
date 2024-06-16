@@ -17,6 +17,9 @@ import EditTrain from './adminPages/EditTrain'
 import AdminLogin from './adminComponents/AdminLogin'
 import AdminTrainSummary from './adminPages/AdminTrainSummary'
 import Payment from './pages/Payment'
+import MyBookings from './pages/MyBookings'
+import CancelTicket from './pages/CancelTicket'
+import PNREnquiry from './pages/PNREnquiry'
 // import AdminHome from './adminpages/AdminHome'
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 // import  'dotenv.config()'
@@ -40,7 +43,10 @@ function App() {
         <Route path='/login' element={<Login logged={logged} setLogged={setLogged} />}/>
         <Route path='/register' element={<Registeruser  logged={logged} setLogged={setLogged}/>}/>
         <Route path='/payment' element={<Payment logged={logged} setLogged={setLogged} />} />
-        <Route path='/admin/home' element={<AdminHome/>}/>
+        <Route path='/myBookings' element={<MyBookings  logged={logged} setLogged={setLogged} />} />
+        <Route path='/cancelTicket' element={<CancelTicket  logged={logged} setLogged={setLogged} />} />
+         <Route path='/pnrEnquiry' element={<PNREnquiry  logged={logged} setLogged={setLogged} />} />
+         <Route path='/admin/home' element={<AdminHome/>}/>
         <Route path='/admin/addTrain' element={<AddTrains/>} />
         <Route path='/admin/editTrain' element={<EditTrain/>} />
         <Route path='/admin/login' element={<AdminLogin/>} />

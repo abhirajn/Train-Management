@@ -79,6 +79,26 @@ router.post('/getfromNUmber' , async(req,res,next)=>{
     res.send(resp[0][0])
 })
 
+router.get('/getAllTicketsOfaUser' , async(req,res,next)=>{
+  const token = req.cookies.token;
+    // console.log(token)
+    if (!token) {
+        return res.status(401).json({ message: 'No token, authorization denied' });
+      }
+
+      jwt.verify(token, secretKey, async(err, decoded) => {
+        if (err) {
+          return res.status(401).json({ message: 'Token is not valid' });
+        }else{
+           const resp = await Ticket.getAllTicketsOfaUser(decoded.userId).then((response)=>{
+              // console.log(response[0])
+              return res.status(200).json(response[0]);  
+           }).catch(()=>{
+            return res.status(401).json({ message: 'Some error occured' });
+           })
+        }
+      })
+})
 
 
 module.exports = router;

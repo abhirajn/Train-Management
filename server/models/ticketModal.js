@@ -62,7 +62,7 @@ let formattedDateString = `${dateParts[2]}-${dateParts[1].padStart(2, '0')}-${da
 let dateObject = new Date(formattedDateString);
 
 // Use the toString method
-let dateStringOutput = dateObject.toString().substring(0,11);
+let dateStringOutput = dateObject.toString().substring(0,15);
 
 // console.log(dateStringOutput);
 
@@ -82,6 +82,11 @@ let dateStringOutput = dateObject.toString().substring(0,11);
         // console.log(res)
          
         return {value : t};
+    }
+
+    static async getAllTicketsOfaUser(username){
+        let sql = `SELECT * FROM Tickets WHERE userId = '${username}';`
+        return db.execute(sql);
     }
 
    

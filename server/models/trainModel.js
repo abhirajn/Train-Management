@@ -43,7 +43,8 @@ class Train{
         let sql = `SELECT *
         FROM Trains
         WHERE fromStation = '${from}'
-        AND toStation = '${to}';`
+        AND toStation = '${to}' 
+        AND status = 'Running';`
         
         return db.execute(sql);
     }
