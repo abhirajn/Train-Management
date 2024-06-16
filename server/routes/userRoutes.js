@@ -101,4 +101,38 @@ router.get('/getAllTicketsOfaUser' , async(req,res,next)=>{
 })
 
 
+
+router.post('/getInfoFromPNR' ,async(req,res)=>{
+  const {pnr} = req.body;
+  const token = req.cookies.token;
+  if (!token) {
+    return res.status(401).json({ message: 'No token, authorization denied' });
+  }
+
+  jwt.verify(token, secretKey, async(err, decoded) => {
+    if (err) {
+      return res.status(401).json({ message: 'Token is not valid' });
+    }else{
+       const resp = await Ticket.getAllInfoFromPNR(pnr).then((response)=>{
+          // console.log(response[0])
+          return res.status(200).json(response[0]);  
+       }).catch(()=>{
+        return res.status(401).json({ message: 'Some error occured' });
+       })
+    }
+  })
+})
+
+
+router.post('/cancelTicket' , async(req,res)=>{
+  const {pnr} = req.body;
+  const resp = await Ticket.cancelTicket(pnr).then((response)=>{
+    // console.log(response[0])
+    return res.status(200).json("done");  
+ }).catch(()=>{
+  return res.status(401).json({ message: 'Some error occured' });
+ })
+})
+
+
 module.exports = router;

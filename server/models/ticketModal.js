@@ -1,3 +1,4 @@
+// const { default: Registeruser } = require("../../client/src/components/RegisterUser");
 const db = require("../config/db")
 
 
@@ -89,6 +90,15 @@ let dateStringOutput = dateObject.toString().substring(0,15);
         return db.execute(sql);
     }
 
+    static async getAllInfoFromPNR(pnr){
+        let sql = `SELECT * FROM Tickets WHERE pnrNumber = ${pnr};`
+        return db.execute(sql);
+    }
+
+    static async cancelTicket(pnr){
+        let sql = `UPDATE Tickets SET ticketStatus = "Canceled" WHERE pnrNumber = ${pnr};`
+        return db.execute(sql);
+    }
    
 }
 

@@ -33,7 +33,7 @@ const[pass , setPass] = useState('');
               navigate('/')
         } catch (error) {
             // console.log("HI", error.response.data.message)
-            toast.error(error.response.data.message);
+            toast.error(error.response);
         }
        
           
