@@ -2,10 +2,10 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import Booking from '../components/Booking'
 
-export default function Home() {
+export default function Home({ logged, setLogged}) {
   return (
     <div>
-        <Navbar/>
+        <Navbar  logged={logged} setLogged={setLogged}/>
         <Booking/>
     </div>
   )

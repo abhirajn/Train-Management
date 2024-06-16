@@ -15,6 +15,8 @@ import AddTrains from './adminPages/AddTrains'
 import AdminHome from './adminPages/AdminHome'
 import EditTrain from './adminPages/EditTrain'
 import AdminLogin from './adminComponents/AdminLogin'
+import AdminTrainSummary from './adminPages/AdminTrainSummary'
+import Payment from './pages/Payment'
 // import AdminHome from './adminpages/AdminHome'
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 // import  'dotenv.config()'
@@ -31,16 +33,18 @@ function App() {
    {/* <InitUser logged={logged} setLogged={setLogged} /> */}
      {/* <Navbar logged={logged} setLogged={setLogged} /> */}
       <Routes>
-        <Route path="/" element={<Home />}/>
-        <Route path="/trains" element={<TrainsDisplay/>}/>
-        <Route path="/bookTicket" element={<BookTicket/>}/>
-        <Route path='/ticketSummary' element={<SummaryPage/>}/>
+        <Route path="/" element={<Home  logged={logged} setLogged={setLogged} />}/>
+        <Route path="/trains" element={<TrainsDisplay  logged={logged} setLogged={setLogged}/>}/>
+        <Route path="/bookTicket" element={<BookTicket  logged={logged} setLogged={setLogged}/>}/>
+        <Route path='/ticketSummary' element={<SummaryPage  logged={logged} setLogged={setLogged}/>}/>
         <Route path='/login' element={<Login logged={logged} setLogged={setLogged} />}/>
-        <Route path='/register' element={<Registeruser/>}/>
+        <Route path='/register' element={<Registeruser  logged={logged} setLogged={setLogged}/>}/>
+        <Route path='/payment' element={<Payment/>} />
         <Route path='/admin/home' element={<AdminHome/>}/>
         <Route path='/admin/addTrain' element={<AddTrains/>} />
         <Route path='/admin/editTrain' element={<EditTrain/>} />
         <Route path='/admin/login' element={<AdminLogin/>} />
+        <Route path='/admin/trainSummary' element={<AdminTrainSummary/>}/>
       </Routes>
     </BrowserRouter>
     </>

@@ -12,4 +12,3 @@ if(!done){
 done = true;   
 module.exports = pool.promise(); 
 }
-// 

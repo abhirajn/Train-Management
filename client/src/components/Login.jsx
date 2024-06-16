@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Navbar from './Navbar';
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 const Login = ({logged ,setLogged}) => {
 
@@ -42,7 +43,9 @@ const[pass , setPass] = useState('');
 
 
   return (
+    <div> <Navbar  logged={logged} setLogged={setLogged}/>
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
+     
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
         <form className="space-y-4" onSubmit={handleSubmit}>
@@ -107,6 +110,7 @@ const[pass , setPass] = useState('');
           </button> */}
         </div>
       </div>
+    </div>
     </div>
   );
 };

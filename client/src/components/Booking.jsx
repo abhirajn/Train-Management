@@ -12,7 +12,7 @@ import dayjs from 'dayjs';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
-
+import '../assets/style.css'
 export default function Booking() {
 
   const navigate = useNavigate();

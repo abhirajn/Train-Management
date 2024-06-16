@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import PassengerForm from './PassengerForm';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 export default function BookCard() {
  const navigate = useNavigate();
@@ -44,7 +46,7 @@ let temparr = ["hi"];
 
 
 const handlechange = () => {
-  console.log("inside handlechanfe")
+  // console.log("inside handlechanfe")
   if(one == false){
    setOne(true)
   }else if(two == false){
@@ -53,7 +55,11 @@ const handlechange = () => {
    setThree(true)
   }else if(four== false){
     setFour(true);
+  }else{
+    toast.error("one person can book upto four people")
   }
+
+
 }
 
 const [oneinfo , setOneinfo] = useState({"name" : "" , "age" : 0 , "gender" :""});
@@ -154,7 +160,7 @@ const handleContinue = () =>{
 
   const data = {
     "userId" : "",
-      "pnrNumber" : 1123,
+      "pnrNumber" : 0,
        "trainNo" : trainNo,
       "trainName"  :trainName, 
       "fromName" : from,
@@ -165,7 +171,13 @@ const handleContinue = () =>{
            "passengerNames" : passengerNames,
             "passengerAge" : passengerAge,
              "passengerGender" : passengerGender,
-              "totalTickets" : total_ticket
+              "totalTickets" : total_ticket,
+              "selection" : payMode,
+              "finalDate" : finalDate,
+              "finalTime" : finalTime,
+              "fare" : fare,
+              "starttime" : starttime,
+              "duration" : duration
   }
   
     navigate('/ticketSummary', { state: data });
@@ -238,8 +250,8 @@ const handleContinue = () =>{
         
          <div className='border-b border-gray-300'>
         <div className="mt-6 flex justify-between items-center">
-          <button className="text-blue-600 hover:underline" onClick={handlechange}>+ Add Passenger/ Add Infant With Berth</button>
-          <button className="text-blue-600 hover:underline">+ Add Infant Without Berth</button>
+          <button className="text-blue-600 hover:underline" onClick={handlechange}>+ Add Passenger</button>
+          {/* <button className="text-blue-600 hover:underline">+ Add Infant Without Berth</button> */}
         </div>
 
         <p className="mt-4 text-xs text-gray-500">
@@ -276,13 +288,13 @@ const handleContinue = () =>{
 </div>
 
         <div className='m-3'>
-        <button  className="bg-white border border-black text-black text-lg font-bold px-4 py-2 rounded-lg mr-3">Back</button>
+        <button onClick={()=>{navigate('/')}} className="bg-white border border-black text-black text-lg font-bold px-4 py-2 rounded-lg mr-3">Back</button>
 
-        <button  onClick={handleContinue}  className="bg-orange-200  border border-black text-black text-lg font-bold px-4 py-2 rounded-lg">Book</button>
+        <button  onClick={handleContinue}  className="bg-orange-200  border border-black text-black text-lg font-bold px-4 py-2 rounded-lg">Continue</button>
         </div>
       </div>
     </div>
-        
+        <ToastContainer/>
     </div>
   )
 }

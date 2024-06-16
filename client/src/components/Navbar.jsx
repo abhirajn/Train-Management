@@ -14,14 +14,15 @@ export default function Navbar({logged , setLogged}) {
 // console.log(logged)
 // const [loggedIn, setLoggedIn] = useState(false);
 
-// useEffect(() => {
-//   const checkAuth = async () => {
-//     const authStatus = await isAuthenticated();
-//     setLogged(!authStatus);
-//   };
+useEffect(() => {
+  const checkAuth = async () => {
+    const authStatus = await isAuthenticated();
+    console.log(authStatus)
+    setLogged(authStatus);
+  };
 
-//   checkAuth();
-// }, []);
+  checkAuth();
+}, []);
 
 
 

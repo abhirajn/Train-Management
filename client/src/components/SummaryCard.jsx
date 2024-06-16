@@ -28,7 +28,12 @@ export default function SummaryCard({state}) {
   };
 
 
-
+var totalfare = Number(state.fare) + Number(0.45);
+if(state.selection == "1"){
+  totalfare += 15;
+}else{
+  totalfare += 10;
+}
 
   return (
     <div className='bg-white w-full'>
@@ -39,12 +44,12 @@ export default function SummaryCard({state}) {
         <div className="flex justify-between items-center mb-4">
           <div>
             <h2 className="text-xl font-semibold">{state.trainName} ({state.trainNo})</h2>
-            <p>00:00 | {state.fromName}</p>
+            <p>{state.starttime} | {state.fromName}</p>
             <p>{daysOfWeek[date.getDay()]}, {date.getDate()} {monthsoftheyear[date.getMonth()]}</p>
           </div>
           <div className="text-right">
             {/* <p className="text-green-600 font-semibold">AVAILABLE-0047</p> */}
-            <p>00:00 | {state.toName}</p>
+            <p>{state.finalTime} | {state.toName}</p>
             <p>{daysOfWeek[date.getDay()]}, {date.getDate()} {monthsoftheyear[date.getMonth()]}</p>
           </div>
         </div>
@@ -59,18 +64,18 @@ export default function SummaryCard({state}) {
           ))}
         </div>
         <div className="mt-4">
-          <p>Your ticket will be sent to ca******@gmail.com / 79******39</p>
+          <p>Your ticket will be sent to ******@gmail.com</p>
         </div>
       </div>
       <div className="border border-gray-300 rounded-lg p-4">
         <h3 className="font-semibold mb-2">Fare Summary</h3>
         <div className="flex justify-between mb-2">
           <p>Ticket Fare</p>
-          <p>₹ 130.00</p>
+          <p>₹ {state.fare}</p>
         </div>
         <div className="flex justify-between mb-2">
           <p>Convenience Fee (Incl. of GST)</p>
-          <p>₹ 17.70</p>
+          <p>₹ {state.selection == 1 ? 15 : 10}</p>
         </div>
         <div className="flex justify-between mb-4">
           <p>Travel Insurance (Incl. of GST)</p>
@@ -78,7 +83,7 @@ export default function SummaryCard({state}) {
         </div>
         <div className="flex justify-between font-semibold">
           <p>Total Fare</p>
-          <p>₹ 148.15</p>
+          <p>₹ {totalfare}</p>
         </div>
       </div>
       {/* <div className="mt-4">
@@ -96,17 +101,17 @@ export default function SummaryCard({state}) {
         <a href="#" className="text-blue-600">View Cancellation Policy</a>
       </div>
 
-<div> <form onSubmit={handleSubmit}>
+{/* <div> <form onSubmit={handleSubmit}> */}
 
         {/* <ReCaptcha onChange={handleCaptchaChange} /> */}
        
-        <input 
+        {/* <input 
           type="text" 
           placeholder="Enter Captcha" 
           className="border border-gray-300 p-2 rounded "
         required/>
         <button type="submit" className="bg-white border border-black text-black text-sm font-semibold px-4 py-2 rounded-lg mr-3">Submit</button>
-      </form></div>
+      </form></div> */}
 
       <button  className="bg-white border border-black text-black text-lg font-bold px-8 py-1 rounded-lg mr-3 my-5">Book</button>
     </div>

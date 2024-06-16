@@ -5,8 +5,9 @@ import axios from 'axios';
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Navbar from './Navbar';
 
-const Registeruser = () => {
+const Registeruser = ({ logged ,setLogged}) => {
 
 const[first , setFirst] = useState('');
 const[last , setLast] = useState('');
@@ -36,6 +37,7 @@ const[cpass , setCpass] = useState('');
                 withCredentials: true 
               })     
               toast.success("user registered");
+              setLogged(true)
               navigate('/')
         } catch (error) {
             // console.log("HI", error.response.data.message)
@@ -51,6 +53,7 @@ const[cpass , setCpass] = useState('');
 
   const navigate = useNavigate();
   return (
+    <div>  <Navbar  logged={logged} setLogged={setLogged}/> 
     <div className="flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
@@ -153,6 +156,7 @@ const[cpass , setCpass] = useState('');
         </div>
       </div>
       <ToastContainer />
+    </div>
     </div>
   );
 };
