@@ -67,7 +67,7 @@ const AdminAllTrains = ({adminlogged , setAdminlogged}) => {
             arr.push(response.data[data]);
           })
           setTrains(arr);
-          console.log(arr);
+          // console.log(arr);
         }).catch(error => {
           // console.log("hi")
           toast.error("login first", {
@@ -96,11 +96,36 @@ useEffect(()=>{
     const fun = async() =>{
       const resp = await axios.get(`${apiUrl}/admin/getAllTrainInfo` , {withCredentials:true})
       .then((r)=>{
+        console.log(r.data)
         setTrains(r.data)
       })
     }
     fun()
 },[])
+
+
+function addTimeDuration(time, duration) {
+  // Parse the time string "HH:MM"
+  const [hours, minutes] = time.split(':').map(Number);
+
+  // Parse the duration string "HH:MM"
+  const [durationHours, durationMinutes] = duration.split(':').map(Number);
+
+  // Create a Date object with the given time
+  const date = new Date();
+  date.setHours(hours);
+  date.setMinutes(minutes);
+
+  // Add the duration
+  date.setHours(date.getHours() + durationHours);
+  date.setMinutes(date.getMinutes() + durationMinutes);
+
+  // Format the final time to "HH:MM"
+  const finalHours = String(date.getHours()).padStart(2, '0');
+  const finalMinutes = String(date.getMinutes()).padStart(2, '0');
+
+  return `${finalHours}:${finalMinutes}`;
+}
 
   return (
     <div className="min-h-screen bg-gray-100 flex">
@@ -184,7 +209,7 @@ useEffect(()=>{
             </thead>
             <tbody className="bg-white divide-y divide-gray-200 ">
               {trains.map(train => (
-                <tr onClick={()=>{navigate('/admin/trainSummary')}} key={train.trainNumber} className='border-2  m-3 p-2 cursor-pointer ' 
+                <tr onClick={()=>{navigate('/admin/trainSummary' , {state  : {...train , "arrival":addTimeDuration(train.startTime , train.duration) } })}} key={train.trainNumber} className='border-2  m-3 p-2 cursor-pointer ' 
                 onMouseEnter={() => setHoveredTrain(train.trainNumber)}
             onMouseLeave={() => setHoveredTrain(null)}
             style={{
@@ -197,7 +222,7 @@ useEffect(()=>{
                   <td className="px-6 py-4 whitespace-nowrap ">{train.trainNumber}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{train.trainName}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{train.startTime}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{train.arrival}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{addTimeDuration(train.startTime , train.duration)}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{train.fromStation}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{train.toStation}</td>
                   <td className="px-6 py-4 whitespace-nowrap">

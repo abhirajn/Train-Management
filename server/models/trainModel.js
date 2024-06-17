@@ -114,6 +114,26 @@ class Train{
 trains tt where tt.trainNumber = t.trainNumber);`
 return db.execute(sql);
      }
+
+     static async getallTrainsfromNumber(trainNumber){
+        let sql = `SELECT DISTINCT fromStation AS value
+        FROM trains WHERE trainNumber = ${trainNumber}
+        UNION
+        SELECT DISTINCT toStation
+        FROM trains WHERE trainNumber = ${trainNumber}
+        ORDER BY value;`
+
+        return db.execute(sql);
+     }
+
+     static async getTrainInfoonfilter(trainNo,fromname,toname){
+        let sql = `SELECT * 
+        FROM trains WHERE trainNumber = ${trainNo}
+        AND fromStation = '${fromname}'
+        AND toStation = '${toname}';`
+
+        return db.execute(sql);
+     }
 }
 
 module.exports = Train;

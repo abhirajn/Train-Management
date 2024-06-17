@@ -99,6 +99,16 @@ let dateStringOutput = dateObject.toString().substring(0,15);
         let sql = `UPDATE Tickets SET ticketStatus = "Canceled" WHERE pnrNumber = ${pnr};`
         return db.execute(sql);
     }
+    static async getAllTicketsforSummary(trainNo , fromname, toname, date){
+        let sql = `SELECT * FROM tickets WHERE 
+            trainNo = ${trainNo}    
+            AND fromName = '${fromname}'
+            AND toName = '${toname}'
+            AND fromDate = '${date}';`
+            return db.execute(sql);
+    }
+
+   
    
 }
 

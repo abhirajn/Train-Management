@@ -1,9 +1,23 @@
 // Sidebar.jsx
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect } from 'react';
 import { NavLink, useNavigate, useNavigation } from 'react-router-dom'; // Assuming you are using react-router for navigation
-let logged = false
+// let logged = false
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
 const Sidebar = ({adminlogged ,setAdminlogged}) => {
   const navigate = useNavigate()
+
+
+  useEffect(()=>{
+    const fun = async() => {
+      const resp = await axios.get(`${apiUrl}/admin/checkAdminlogin` , {withCredentials : true}).then((r)=>{
+        console.log(r)
+        setAdminlogged(r.data)
+      })
+    }
+    fun()
+  },[])
+
   return (
     <aside className="relative w-64 bg-blue-900 text-white flex-shrink-0 p-4">
       <h2 className="relative text-2xl font-semibold mb-10 ">Admin Portal</h2>

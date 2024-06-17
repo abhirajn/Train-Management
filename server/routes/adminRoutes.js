@@ -3,6 +3,7 @@ const Train = require('../models/trainModel');
 const Admin = require('../models/adminModal');
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
+const Ticket = require('../models/ticketModal');
 
 const router = express.Router();
 let secretKey = 'abhi'
@@ -101,5 +102,45 @@ router.get('/getAllTrainInfo' , async(req,res)=>{
     
 })  
 
+router.get('/checkAdminlogin' , async(req,res)=>{
+    const token = req.cookies.Admintoken;
+  if (!token) {
+    // console.log("hi2")
+     return res.send(false);
+  }
+
+  jwt.verify(token, secretKey, (err, decoded) => {
+    // console.log("hi3")
+    if (err) {
+      // console.log("hi4")
+      return res.send(false);
+    }else{
+      return res.send(true);
+    }
+})
+
+})
+
+router.post('/getAllTicketsforSummary', async(req,res)=>{
+    const {trainNo , fromname, toname, date} = req.body;
+    // console.log(req.body)
+    const resp = await Ticket.getAllTicketsforSummary(Number(trainNo) , fromname, toname, date);
+    // console.log(resp[0]);
+    res.json(resp[0])
+
+})
+
+router.post('/getallTrainsfromNumber' , async(req,res)=>{
+    const {trainNumber} = req.body;
+    const resp = await Train.getallTrainsfromNumber(Number(trainNumber));
+    // console.log(resp[0]);
+    res.json(resp[0])
+})
+
+router.post('/getTrainInfoonfilter' , async(req,res)=>{
+    const {trainNo,fromname,toname} = req.body;
+    const resp = await Train.getTrainInfoonfilter(trainNo,fromname,toname);
+    res.json(resp[0])
+})
 
 module.exports = router;
