@@ -284,7 +284,7 @@ const handleContinue = () =>{
 
         </div>
 <div>
-  <p className='font-bold text-xl m-4 mb-2'>Total fare is {fare} </p>
+  <p className='font-bold text-xl m-4 mb-2'>Total fare is {fare}/per person </p>
 </div>
 
         <div className='m-3'>

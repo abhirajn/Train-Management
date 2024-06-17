@@ -29,7 +29,7 @@ const Payment = ({logged ,setLogged}) => {
 
   const startdate = new Date(state.trainDate);
   const startdateSting  =startdate.toString();
-  var totalfare = Number(state.fare) + Number(0.45);
+  var totalfare = Number(state.fare)*passengerNames.length + Number(0.45);
 if(state.selection == "1"){
   totalfare += 15;
 }else{
@@ -93,13 +93,17 @@ const handleBook = () => {
                "toDate" : state.finalDate.substring(0,15),
                 "fromTime" : state.starttime,
                  "toTime" : state.finalTime,
-              "fare" : state.fare, 
+              "fare" : totalfare, 
            "ticketStatus" : "Active"
     },{withCredentials: true })
   }
 
   fun().then(()=>{
-    alert("tickets booked")
+    toast.success("Tickets successfully booked", {
+      position: "top-center",
+      autoClose: 1000,
+      onClose : () => navigate('/')
+    })
     // navigate('/')
     
   });
@@ -162,7 +166,7 @@ const handleBook = () => {
           <div className="space-y-1">
             <div className="flex justify-between">
               <span>Ticket Fare</span>
-              <span>{state.fare}</span>
+              <span>{ Number(state.fare)*passengerNames.length}</span>
             </div>
             <div className="flex justify-between">
               <span>Convenience Fee (Incl. of GST)</span>

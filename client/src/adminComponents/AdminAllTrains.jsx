@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
-const AdminAllTrains = () => {
+const AdminAllTrains = ({adminlogged , setAdminlogged}) => {
 
   const handleChange = (event, newValue) => {
     // console.log(newValue)
@@ -92,10 +92,20 @@ const AdminAllTrains = () => {
 //       .catch(error => console.error('Error fetching trains:', error));
 //   }, [date]);
 
+useEffect(()=>{
+    const fun = async() =>{
+      const resp = await axios.get(`${apiUrl}/admin/getAllTrainInfo` , {withCredentials:true})
+      .then((r)=>{
+        setTrains(r.data)
+      })
+    }
+    fun()
+},[])
+
   return (
     <div className="min-h-screen bg-gray-100 flex">
       {/* Sidebar */}
-    <Sidebar/>
+    <Sidebar adminlogged={adminlogged}  setAdminlogged={setAdminlogged}/>
 
       {/* Main Content */}
       <main className="flex-1 p-6">
@@ -174,7 +184,7 @@ const AdminAllTrains = () => {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200 ">
               {trains.map(train => (
-                <tr  key={train.trainNumber} className='border-2  m-3 p-2 cursor-pointer ' 
+                <tr onClick={()=>{navigate('/admin/trainSummary')}} key={train.trainNumber} className='border-2  m-3 p-2 cursor-pointer ' 
                 onMouseEnter={() => setHoveredTrain(train.trainNumber)}
             onMouseLeave={() => setHoveredTrain(null)}
             style={{

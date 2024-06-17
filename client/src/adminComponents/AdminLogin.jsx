@@ -5,7 +5,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
-const AdminLogin = ({logged ,setLogged}) => {
+const AdminLogin = ({adminlogged ,setAdminlogged}) => {
 
 
 const[email , setEmail] = useState('');
@@ -21,7 +21,7 @@ const[pass , setPass] = useState('');
     e.preventDefault();
     
         try {
-            const resp =  await axios.post(`${apiUrl}/user/login`, {
+            const resp =  await axios.post(`${apiUrl}/admin/adminlogin`, {
                 "username" : email,
                 "password" : pass
               },{
@@ -29,9 +29,11 @@ const[pass , setPass] = useState('');
               })     
               toast.success("User Logged in");
               // setLogged(true)
+              setAdminlogged(true)
               navigate('/admin/home')
         } catch (error) {
             // console.log("HI", error.response.data.message)
+            setAdminlogged(false)
             toast.error(error.response.data.message);
         }
        

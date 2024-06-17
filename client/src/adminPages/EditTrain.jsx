@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import Sidebar from '../adminComponents/Sidebar';
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
-const EditTrain = () => {
+const EditTrain = ({adminlogged ,setAdminlogged}) => {
     const navigate = useNavigate();
     const[tno , setTno] = useState();
     const[frnum , setFrnum] = useState();
@@ -150,7 +150,7 @@ const EditTrain = () => {
   return (
     <div className='min-h-screen bg-gray-100 flex'>
         {/* <AdminNavbar/> */}
-        <Sidebar/>
+        <Sidebar adminlogged={adminlogged}  setAdminlogged={setAdminlogged}/>
         <div className='flex'>
         <div className='ml-40 mr-20 my-40'>
         <div className="mb-4">

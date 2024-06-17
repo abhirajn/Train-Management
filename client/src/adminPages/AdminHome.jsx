@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import AdminAllTrains from '../adminComponents/AdminAllTrains';
 import Sidebar from '../adminComponents/Sidebar';
 
-export default function AdminHome() {
+export default function AdminHome({adminlogged ,setAdminlogged}) {
   const today = dayjs();
   const todayDate = new Date();
   const year = todayDate.getFullYear();
@@ -26,7 +26,7 @@ const formattedDate = `${year}-${month}-${day}`;
 
         {/* <AdminNavbar/> */}
         {/* <Sidebar/> */}
-       <AdminAllTrains/>
+       <AdminAllTrains adminlogged = {adminlogged} setAdminlogged={setAdminlogged}/>
 
 
     </div>

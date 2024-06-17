@@ -29,7 +29,7 @@ const navigate = useNavigate()
   };
 
 
-var totalfare = Number(state.fare) + Number(0.45);
+var totalfare = Number(state.fare) * pass.length + Number(0.45);
 if(state.selection == "1"){
   totalfare += 15;
 }else{
@@ -72,7 +72,7 @@ if(state.selection == "1"){
         <h3 className="font-semibold mb-2">Fare Summary</h3>
         <div className="flex justify-between mb-2">
           <p>Ticket Fare</p>
-          <p>₹ {state.fare}</p>
+          <p>₹ {Number(state.fare) * pass.length}</p>
         </div>
         <div className="flex justify-between mb-2">
           <p>Convenience Fee (Incl. of GST)</p>

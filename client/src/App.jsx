@@ -26,10 +26,12 @@ const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 function App() {
   const[logged, setLogged] = useState(false);
+  const[adminlogged, setAdminlogged] = useState(false);
   // console.log("jii" , logged)
   // const location = useLocation();
   // location.pathname !== '/admin/home'
   // console.log(location.pathname, typeof location.pathname)
+  
   return (
     <>   
    <BrowserRouter>
@@ -46,11 +48,11 @@ function App() {
         <Route path='/myBookings' element={<MyBookings  logged={logged} setLogged={setLogged} />} />
         <Route path='/cancelTicket' element={<CancelTicket  logged={logged} setLogged={setLogged} />} />
          <Route path='/pnrEnquiry' element={<PNREnquiry  logged={logged} setLogged={setLogged} />} />
-         <Route path='/admin/home' element={<AdminHome/>}/>
-        <Route path='/admin/addTrain' element={<AddTrains/>} />
-        <Route path='/admin/editTrain' element={<EditTrain/>} />
-        <Route path='/admin/login' element={<AdminLogin/>} />
-        <Route path='/admin/trainSummary' element={<AdminTrainSummary/>}/>
+         <Route path='/admin/home' element={<AdminHome adminlogged = {adminlogged}  setAdminlogged={setAdminlogged}/>}/>
+        <Route path='/admin/addTrain' element={<AddTrains adminlogged = {adminlogged}  setAdminlogged={setAdminlogged}/>} />
+        <Route path='/admin/editTrain' element={<EditTrain adminlogged = {adminlogged}  setAdminlogged={setAdminlogged}/>} />
+        <Route path='/admin/login' element={<AdminLogin adminlogged = {adminlogged}  setAdminlogged={setAdminlogged}/>} />
+        <Route path='/admin/trainSummary' element={<AdminTrainSummary adminlogged = {adminlogged}  setAdminlogged={setAdminlogged}/>}/>
       </Routes>
     </BrowserRouter>
     </>

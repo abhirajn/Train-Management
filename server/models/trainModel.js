@@ -108,6 +108,12 @@ class Train{
          WHERE trainNumber = ${trainNumber};`
          return db.execute(sql);
      }
+
+     static async getAllTrainInfo(){
+        let sql = `SELECT * from trains t where t.toStationNumber = (select max(toStationNumber) from 
+trains tt where tt.trainNumber = t.trainNumber);`
+return db.execute(sql);
+     }
 }
 
 module.exports = Train;
