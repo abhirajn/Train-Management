@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 // import { use } from '../../../server/routes/adminRoutes';
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -26,6 +27,7 @@ const Payment = ({logged ,setLogged}) => {
     'EMI',
     'Loyalty Redemption Booking'
   ];
+  const navigate = useNavigate()
 
   const startdate = new Date(state.trainDate);
   const startdateSting  =startdate.toString();
@@ -188,6 +190,7 @@ const handleBook = () => {
         <button onClick={handleBook} className="py-2 px-4 bg-orange-500 text-white rounded-lg hover:bg-orange-600">Pay & Book</button>
       </div>
     </div>
+    <ToastContainer/>
     </div>
   );
 };

@@ -55,7 +55,7 @@ if(state.selection == "1"){
           </div>
         </div>
         <div className="bg-gray-100 p-2 rounded mb-4">
-          <p>{pass.length} Adult | Second Sitting (2S) | General | Boarding at {state.fromName} | Boarding Date: {date.getDate()} {monthsoftheyear[date.getMonth()]} {date.getFullYear()} 00:00</p>
+          <p>{pass.length} Adult | General | Boarding at {state.fromName} | Boarding Date: {date.getDate()} {monthsoftheyear[date.getMonth()]} {date.getFullYear()} {state.starttime}</p>
           <p className="text-sm text-gray-600">Please check <a href="https://enquiry.indianrail.gov.in/ntes/" className="text-blue-600">NTES website</a> or <a href="https://play.google.com/store/apps/details?id=com.cris.ntes" className="text-blue-600">NTES app</a> for actual time before boarding</p>
         </div>
         <div className="border-t border-gray-300 pt-2">
@@ -65,7 +65,7 @@ if(state.selection == "1"){
           ))}
         </div>
         <div className="mt-4">
-          <p>Your ticket will be sent to ******@gmail.com</p>
+          {/* <p>Your ticket will be sent to ******@gmail.com</p> */}
         </div>
       </div>
       <div className="border border-gray-300 rounded-lg p-4">

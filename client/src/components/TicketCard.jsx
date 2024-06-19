@@ -30,7 +30,7 @@ const TicketCard = ({prop}) => {
           </div>
         </div>
         <div className="flex justify-between items-center mt-4">
-          <span className="text-green-600 font-bold">STATUS: {prop.ticketStatus}</span>
+          <span className={prop.ticketStatus == "Active" ? "text-green-600 font-bold" : "text-red-600 font-bold"}>STATUS: {prop.ticketStatus}</span>
           <p className="text-gray-600">{passengerNames.length} Passengers | Second Sitting (2S)</p>
         </div>
       {check ?   <div className="border-t border-gray-200 mt-4 pt-4">

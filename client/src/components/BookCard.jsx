@@ -218,7 +218,7 @@ const handleContinue = () =>{
             </div>
           </div>
           <div className="mt-4">
-            <button className="bg-yellow-200 text-black px-3 py-1 rounded-lg mr-2">Second Sitting (2S)</button>
+            {/* <button className="bg-yellow-200 text-black px-3 py-1 rounded-lg mr-2">Second Sitting (2S)</button> */}
             <button className="bg-yellow-200 text-black px-3 py-1 rounded-lg">General</button>
           </div>
         </div>

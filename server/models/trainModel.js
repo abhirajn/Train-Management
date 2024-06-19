@@ -134,6 +134,15 @@ return db.execute(sql);
 
         return db.execute(sql);
      }
+
+     static async getAllBetweenTwoadmin(from , to){
+        let sql = `SELECT *
+        FROM Trains
+        WHERE fromStation = '${from}'
+        AND toStation = '${to}';`
+        
+        return db.execute(sql);
+    }
 }
 
 module.exports = Train;

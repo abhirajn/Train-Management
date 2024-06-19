@@ -30,6 +30,7 @@ const TrainSummary = () => {
    const[lessthan5 , setLessthan5] = useState(0);
    const[fiveto60 , setFiveto60] = useState(0);
    const[more60 , setMore60] = useState(0);
+   const[canceled , setCanceled] = useState(0);
 
   const today = new Date().toISOString().split('T')[0];
 
@@ -128,17 +129,21 @@ tempdate += d + "";
         }).then((resp)=>{
           setTicketinfo(resp.data)
           var tempass = [];
+          var tmen = 0;
+          var twomen = 0;
+          var tother = 0;
+          var tless5 = 0;
+          var tfto60 = 0;
+          var tmore60 = 0;
+          var tcan = 0;
           resp.data.map((d)=>{
               
               const passengerNames = d.passengerNames.split(",")
               const passengerAges = d.passengerAge.split(",")
               const passengerGender = d.passengerGender.split(",")
-              var tmen = 0;
-              var twomen = 0;
-              var tother = 0;
-              var tless5 = 0;
-              var tfto60 = 0;
-              var tmore60 = 0;
+              if(d.ticketStatus == 'Canceled'){
+                tcan += passengerAges.length
+              }
               
               passengerGender.map((data , i)=>{
                 var sumne = {
@@ -168,8 +173,9 @@ tempdate += d + "";
                 }
               })
              
-              setMen(tmen); setWomen(twomen); setOthers(tother); setLessthan5(tless5); setFiveto60(tfto60); setMore60(tmore60);
           })
+          setMen(tmen); setWomen(twomen); setOthers(tother); setLessthan5(tless5); setFiveto60(tfto60); setMore60(tmore60);
+setCanceled(tcan)
           setPassengers(tempass);
     
           console.log(tempass)
@@ -190,16 +196,20 @@ tempdate += d + "";
             setTicketinfo(resp.data)
             // console.log(resp.data)
             var tempass = [];
+            var tmen = 0;
+            var twomen = 0;
+            var tother = 0;
+            var tless5 = 0;
+            var tfto60 = 0;
+            var tmore60 = 0;
+            var tcan = 0;
             resp.data.map((d)=>{
               const passengerNames = d.passengerNames.split(",")
               const passengerAges = d.passengerAge.split(",")
               const passengerGender = d.passengerGender.split(",")
-              var tmen = 0;
-              var twomen = 0;
-              var tother = 0;
-              var tless5 = 0;
-              var tfto60 = 0;
-              var tmore60 = 0;
+              if(d.ticketStatus == 'Canceled'){
+                tcan += passengerAges.length
+              }
               passengerGender.map((data , i)=>{
                 var sumne = {
                   "username" : d.userId,
@@ -227,9 +237,10 @@ tempdate += d + "";
                  tmore60++;
                 }
               })
-              
-              setMen(tmen); setWomen(twomen); setOthers(tother); setLessthan5(tless5); setFiveto60(tfto60); setMore60(tmore60);
+              // console.log(tmen)
           })
+          setMen(tmen); setWomen(twomen); setOthers(tother); setLessthan5(tless5); setFiveto60(tfto60); setMore60(tmore60);
+setCanceled(tcan)
           setPassengers(tempass);
           })
         } catch (error) {
@@ -242,6 +253,7 @@ tempdate += d + "";
 
 
 },[state])
+
 
 const handleFilter = async() => {
   try {
@@ -273,16 +285,21 @@ const handleFilter = async() => {
       setTicketinfo(resp.data)
       // console.log(resp.data)
       var tempass = [];
+      var tmen = 0;
+      var twomen = 0;
+      var tother = 0;
+      var tless5 = 0;
+      var tfto60 = 0;
+      var tmore60 = 0;
+      var tcan = 0;
       resp.data.map((d)=>{
+        console.log(d)
         const passengerNames = d.passengerNames.split(",")
         const passengerAges = d.passengerAge.split(",")
         const passengerGender = d.passengerGender.split(",")
-        var tmen = 0;
-        var twomen = 0;
-        var tother = 0;
-        var tless5 = 0;
-        var tfto60 = 0;
-        var tmore60 = 0;
+        if(d.ticketStatus == 'Canceled'){
+          tcan += passengerAges.length
+        }
         passengerGender.map((data , i)=>{
           var sumne = {
             "username" : d.userId,
@@ -311,8 +328,10 @@ const handleFilter = async() => {
           }
         })
         
-        setMen(tmen); setWomen(twomen); setOthers(tother); setLessthan5(tless5); setFiveto60(tfto60); setMore60(tmore60);
     })
+    setMen(tmen); setWomen(twomen); setOthers(tother); setLessthan5(tless5); setFiveto60(tfto60); setMore60(tmore60);
+setCanceled(tcan)
+console.log(tcan)
     setPassengers(tempass);
       console.log(tempass)
     })
@@ -434,14 +453,13 @@ const handleFilter = async() => {
             </div>
 
             <div>
-              <p className='text-lg' >Destination Chart</p>
+              <p className='text-lg' >Status Chart</p>
             <PieChart
       series={[
         {
           data: [
-            { id: 0, value: 10, label: 'series A' },
-            { id: 1, value: 15, label: 'series B' },
-            { id: 2, value: 20, label: 'series C' },
+            { id: 0, value: passengers.length - canceled, label: 'Active' },
+            { id: 1, value: canceled, label: 'Cancelled' },
           ],
         },
       ]}

@@ -91,7 +91,7 @@ if(from.length == 0 || to.length == 0){
       value={from}
       onChange={handleChange}
       options={allTrains}
-      sx={{margin:3, marginBottom : 3, width: 330 , border : 1 , borderColor : '#94b3d4' }}
+      sx={{margin:3, marginBottom : 3, width: 330  }}
       color='primary'
       variant="outlined"
       // onChange={setFrom()}
@@ -106,7 +106,7 @@ if(from.length == 0 || to.length == 0){
       value={to}
       onChange={tohandleChange}
       options={allTrains}
-      sx={{margin:3, marginBottom : 3, width: 330 , border : 1 , borderColor : '#94b3d4' }}
+      sx={{margin:3, marginBottom : 3, width: 330 }}
       color='primary'
       variant="outlined"
       renderInput={(params) => <TextField {...params} label="To"/>}
@@ -123,7 +123,7 @@ if(from.length == 0 || to.length == 0){
           setDate(tempDate);
           // console.log(date)
         }}
-          sx={{margin:3, marginBottom : 3, width: 300 , border : 1 , borderColor : '#94b3d4' }}
+          sx={{margin:3, marginBottom : 3, width: 300  }}
           
           disablePast
         />
@@ -134,8 +134,8 @@ if(from.length == 0 || to.length == 0){
            </div>
            <FormGroup sx={{m:3 , color:"#94b3d4"}}>
       <FormControlLabel  control={<Checkbox />} label="Date flexible" />
-      <FormControlLabel  control={<Checkbox  />} label="another checkbox" />
-      <FormControlLabel  control={<Checkbox />} label="another checkbox" />
+      <FormControlLabel  control={<Checkbox  />} label="Train with available berth" />
+      {/* <FormControlLabel  control={<Checkbox />} label="another checkbox" /> */}
     </FormGroup>
 
     <div className='mx-8 mb-2'>

@@ -143,4 +143,21 @@ router.post('/getTrainInfoonfilter' , async(req,res)=>{
     res.json(resp[0])
 })
 
+router.post('/getTrains' , async(req,res,next)=>{
+    const {from , to} = req.body;
+    const token = req.cookies.token;
+    // console.log(token)
+    if (!token) {
+        return res.status(401).json({ message: 'No token, authorization denied' });
+      }
+      jwt.verify(token, secretKey, (err, decoded) => {
+        if (err) {
+          return res.status(401).json({ message: 'Token is not valid' });
+        }
+      })
+    // console.log(req.body)
+    const resp = await Train.getAllBetweenTwoadmin(from , to);
+    res.send(resp[0])
+})
+
 module.exports = router;

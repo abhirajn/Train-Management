@@ -230,6 +230,7 @@ useEffect(()=>{
   }
 },[])
 
+console.log(one)
 
   return (
     <div className='ml-80 mt-5 mr-2'>
@@ -251,7 +252,7 @@ useEffect(()=>{
       </div>
       
       <div className="mt-4 m-1 ml-4 ">
-        <button onClick={()=>{setSelectedDate(datee)}}  className= {selectedDate.getDate() == dateofthemonth && prop.totalCapacity - one > 0 ? " border-2 border-indigo-600  bg-gray-300  mr-3 text-left p-2 rounded  pr-9" : "border-2  bg-gray-300 border-red-600 mr-3 text-left p-2 rounded  pr-9 text-red-400"}>  <span className='text-md font-bold'> {dayOfWeek}, {dateofthemonth} {monthsoftheyear[datee.getMonth()]}</span> <br></br> <span className={prop.totalCapacity - one > 0 ?'text-lg font-bold text-green-500' :'text-lg font-bold text-red-500 '}>AVAILABLE {prop.totalCapacity - one}</span> </button>
+        <button onClick={()=>{setSelectedDate(datee)}}  className= {selectedDate.getDate() == dateofthemonth && prop.totalCapacity - one > 0 ? " border-2 border-indigo-600  bg-gray-300  mr-3 text-left p-2 rounded  pr-9" : "border-2  bg-gray-300  mr-3 text-left p-2 rounded  pr-9 "}>  <span className='text-md font-bold'> {dayOfWeek}, {dateofthemonth} {monthsoftheyear[datee.getMonth()]}</span> <br></br> <span className={prop.totalCapacity - one > 0 ?'text-lg font-bold text-green-500' :'text-lg font-bold text-red-500 '}>AVAILABLE {prop.totalCapacity - one}</span> </button>
         <button onClick={()=>{setSelectedDate(date2)}} className= {selectedDate.getDate() == date2.getDate()  && prop.totalCapacity - two > 0 ? " border-2 border-indigo-600  bg-gray-300  mr-3 text-left p-2 rounded  pr-9" : "border-2  bg-gray-300  mr-3 text-left p-2 rounded  pr-9"}>  <span className='text-md font-bold'> {daysOfWeek[date2.getDay()]}, {date2.getDate()} {monthsoftheyear[date2.getMonth()]}</span> <br></br> <span className={prop.totalCapacity - two > 0 ?'text-lg font-bold text-green-500' :'text-lg font-bold text-red-500 '} >AVAILABLE {prop.totalCapacity - two}</span> </button>
         <button onClick={()=>{setSelectedDate(date3)}} className= {selectedDate.getDate() == date3.getDate()  && prop.totalCapacity - three > 0 ? " border-2 border-indigo-600  bg-gray-300  mr-3 text-left p-2 rounded  pr-9" : "border-2  bg-gray-300  mr-3 text-left p-2 rounded  pr-9"}>  <span className='text-md font-bold'> {daysOfWeek[date3.getDay()]}, {date3.getDate()} {monthsoftheyear[date3.getMonth()]}</span> <br></br> <span className={prop.totalCapacity - three > 0 ?'text-lg font-bold text-green-500' :'text-lg font-bold text-red-500 '} >AVAILABLE {prop.totalCapacity - three}</span> </button>
         <button onClick={()=>{setSelectedDate(date4)}} className= {selectedDate.getDate() == date4.getDate()  && prop.totalCapacity - four > 0 ? " border-2 border-indigo-600  bg-gray-300  mr-3 text-left p-2 rounded  pr-9" : "border-2  bg-gray-300  mr-3 text-left p-2 rounded  pr-9"}>  <span className='text-md font-bold'> {daysOfWeek[date4.getDay()]}, {date4.getDate()} {monthsoftheyear[date4.getMonth()]}</span> <br></br> <span className={prop.totalCapacity - four > 0 ?'text-lg font-bold text-green-500' :'text-lg font-bold text-red-500 '} >AVAILABLE {prop.totalCapacity - four}</span> </button>

@@ -58,7 +58,7 @@ const AdminAllTrains = ({adminlogged , setAdminlogged}) => {
       console.log(from , to)
       if(from && to){
        
-        const resp =await axios.post(`${apiUrl}/api/getTrains`, {
+        const resp =await axios.post(`${apiUrl}/admin/getTrains`, {
           "from" : from,
           "to" : to
         },{withCredentials: true}).then((response)=>{
