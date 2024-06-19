@@ -8,6 +8,39 @@ const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 
 const Payment = ({logged ,setLogged}) => {
+  const calculatefinaldate = (dateStr, startTimeStr,durationStr) => {
+   
+
+    // Convert date and time to Date object
+    const startDate = new Date(dateStr);
+    const [startHours, startMinutes] = startTimeStr.split(':').map(Number);
+    startDate.setHours(startHours, startMinutes);
+
+    // Parse duration
+    const [durationHours, durationMinutes] = durationStr.split(':').map(Number);
+
+    // Add duration to start date
+    startDate.setHours(startDate.getHours() + durationHours);
+    startDate.setMinutes(startDate.getMinutes() + durationMinutes);
+
+    // Format result
+    const options = {
+        weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+    };
+    const finalDateStr = startDate.toLocaleString('en-US', options);
+   const tempfinalDateStr = finalDateStr.split(",");
+   var tempfinalDateStrstr = "";
+   for(var i = 0; i < 3; i++){
+    tempfinalDateStrstr +=  tempfinalDateStr[i];
+   }
+    return tempfinalDateStrstr;
+  }
   const location = useLocation();
   const { state } = location;
   console.log({state})
@@ -77,7 +110,7 @@ useEffect(()=>{
 })
 
 const handleBook = () => {
-
+  // calculatefinaldate(startdateSting.substring(0,15) , state.starttime , state.duration)
   const fun = async() => {
     const resp =  await axios.post(`${apiUrl}/api/bookticket`, {
       "userId" : user,
@@ -92,7 +125,7 @@ const handleBook = () => {
              "passengerGender" : state.passengerGender,
               "totalTickets" : passengerNames.length,
                "fromDate" : startdateSting.substring(0,15),
-               "toDate" : state.finalDate.substring(0,15),
+               "toDate" : calculatefinaldate(startdateSting.substring(0,15) , state.starttime , state.duration),
                 "fromTime" : state.starttime,
                  "toTime" : state.finalTime,
               "fare" : totalfare, 

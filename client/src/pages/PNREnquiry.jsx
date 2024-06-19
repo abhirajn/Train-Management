@@ -36,10 +36,8 @@ const [passengerGender , setPassengerGender] = useState([]);
    setPassengerGender(resp.data[0].passengerGender.split(","))
         })
       } catch (error) {
-        toast.error("login first", {
+        toast.error("PNR doesnt exists", {
             position: "top-center",
-            autoClose: 1000,
-            onClose : () => navigate('/login')
           })
           console.error(error);
       }

@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import AdminNavbar from '../adminComponents/AdminNavbar';
 import Sidebar from '../adminComponents/Sidebar';
+import { ToastContainer, toast } from 'react-toastify';
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 const AddTrains = ({adminlogged,setAdminlogged}) => {
@@ -43,22 +44,10 @@ const AddTrains = ({adminlogged,setAdminlogged}) => {
     fare: trainDetails.fare
    }, {withCredentials : true} )
    .then(()=>{
-    setTrainDetails({
-        trainName: '',
-        trainNumber: '',
-        fromStation: '',
-        toStation: '',
-        fromStationNumber: '',
-        toStationNumber: '',
-        startTime: '',
-        duration: '',
-        status: 'Running',
-        totalCapacity: '',
-        fare:''
-    })
-    // navigate('/admin/home')
+    toast.success("train added")
    })
    .catch((err)=>{
+    toast.error("couldnt able to add")
         console.log(err)
     })
   };
@@ -220,6 +209,7 @@ const AddTrains = ({adminlogged,setAdminlogged}) => {
         </button>
       </form>
     </div>
+    <ToastContainer/>
     </div>
   );
 };
