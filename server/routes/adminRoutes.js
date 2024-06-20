@@ -145,7 +145,7 @@ router.post('/getTrainInfoonfilter' , async(req,res)=>{
 
 router.post('/getTrains' , async(req,res,next)=>{
     const {from , to} = req.body;
-    const token = req.cookies.token;
+    const token = req.cookies.Admintoken;
     // console.log(token)
     if (!token) {
         return res.status(401).json({ message: 'No token, authorization denied' });

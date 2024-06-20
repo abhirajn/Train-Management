@@ -20,6 +20,7 @@ import Payment from './pages/Payment'
 import MyBookings from './pages/MyBookings'
 import CancelTicket from './pages/CancelTicket'
 import PNREnquiry from './pages/PNREnquiry'
+import AdminGroupAdd from './adminPages/AdminGroupAdd'
 // import AdminHome from './adminpages/AdminHome'
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 // import  'dotenv.config()'
@@ -53,6 +54,7 @@ function App() {
         <Route path='/admin/editTrain' element={<EditTrain adminlogged = {adminlogged}  setAdminlogged={setAdminlogged}/>} />
         <Route path='/admin/login' element={<AdminLogin adminlogged = {adminlogged}  setAdminlogged={setAdminlogged}/>} />
         <Route path='/admin/trainSummary' element={<AdminTrainSummary adminlogged = {adminlogged}  setAdminlogged={setAdminlogged}/>}/>
+        <Route path='/admin/groupadd' element={<AdminGroupAdd/>} />
       </Routes>
     </BrowserRouter>
     </>

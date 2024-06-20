@@ -73,7 +73,7 @@ const AdminAllTrains = ({adminlogged , setAdminlogged}) => {
           toast.error("login first", {
             position: "top-center",
             autoClose: 1000,
-            onClose : () => navigate('/login')
+            onClose : () => navigate('/admin/login')
           })
           console.error(error);
           
@@ -92,16 +92,16 @@ const AdminAllTrains = ({adminlogged , setAdminlogged}) => {
 //       .catch(error => console.error('Error fetching trains:', error));
 //   }, [date]);
 
-useEffect(()=>{
-    const fun = async() =>{
-      const resp = await axios.get(`${apiUrl}/admin/getAllTrainInfo` , {withCredentials:true})
-      .then((r)=>{
-        console.log(r.data)
-        setTrains(r.data)
-      })
-    }
-    fun()
-},[])
+// useEffect(()=>{
+//     const fun = async() =>{
+//       const resp = await axios.get(`${apiUrl}/admin/getAllTrainInfo` , {withCredentials:true})
+//       .then((r)=>{
+//         console.log(r.data)
+//         setTrains(r.data)
+//       })
+//     }
+//     fun()
+// },[])
 
 
 function addTimeDuration(time, duration) {
@@ -126,6 +126,11 @@ function addTimeDuration(time, duration) {
 
   return `${finalHours}:${finalMinutes}`;
 }
+const[c,setC] = useState(false)
+useEffect(()=>{
+setC(!c)
+console.log(trains)
+},[trains,setTrains])
 
   return (
     <div className="min-h-screen bg-gray-100 flex">
@@ -209,9 +214,9 @@ function addTimeDuration(time, duration) {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200 ">
               {trains.map(train => (
-                <tr onClick={()=>{navigate('/admin/trainSummary' , {state  : {...train , "arrival":addTimeDuration(train.startTime , train.duration) } })}} key={train.trainNumber} className='border-2  m-3 p-2 cursor-pointer ' 
-                onMouseEnter={() => setHoveredTrain(train.trainNumber)}
-            onMouseLeave={() => setHoveredTrain(null)}
+                <tr onClick={()=>{navigate('/admin/trainSummary' , {state  : {...train , "arrival":addTimeDuration(train.startTime , train.duration) } })}}  className='border-2  m-3 p-2 cursor-pointer ' 
+                // onMouseEnter={() => setHoveredTrain(train.trainNumber)}
+            // onMouseLeave={(/) => setHoveredTrain(null)}
             style={{
               transform: hoveredTrain === train.trainNumber ? 'scale(1.02)' : 'scale(1)',
               backgroundColor: hoveredTrain === train.trainNumber ? '#f0f4f8' : 'transparent',

@@ -145,6 +145,7 @@ const EditTrain = ({adminlogged ,setAdminlogged}) => {
             fare:''
         })
         console.log("err")
+        toast.error("enter from and to number")
     }
   }
   return (

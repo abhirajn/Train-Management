@@ -47,12 +47,12 @@ const Sidebar = ({adminlogged ,setAdminlogged}) => {
           Edit Train
         </NavLink>
         <NavLink
-          to="/settings"
+          to="/admin/groupadd"
           className={({ isActive }) =>
             `block py-2 px-4 ${isActive ? 'bg-blue-800' : ''}`
           }
         >
-          Settings
+          Group Add Train
         </NavLink>
       </nav>
       <div className='absolute bottom-0 mb-7'>

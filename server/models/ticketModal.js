@@ -104,7 +104,7 @@ let dateStringOutput = dateObject.toString().substring(0,15);
             trainNo = ${trainNo}    
             AND fromName = '${fromname}'
             AND toName = '${toname}'
-            AND fromDate = '${date}';`
+            AND fromDate = '${date}' order by (ticketStatus);`
             return db.execute(sql);
     }
 

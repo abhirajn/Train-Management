@@ -264,13 +264,17 @@ const handleFilter = async() => {
     },{
       withCredentials : true
     }).then((resp)=>{
+      // console.log(resp.data[0])
       state.fromStation = from;
       state.toStation = to;
-      state.startTime = resp.data.startTime
+      if(resp.data[0]){ state.startTime = resp.data[0].startTime}
+      else toast.error("No trains")
+     
       
     })
   } catch (error) {
-    toast.error("error")
+    console.log(error.message)
+    toast.error("No trains")
   }
 
   try {

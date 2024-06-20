@@ -29,7 +29,7 @@ export default function MyBookings({logged ,setLogged}) {
                         const providedDate = new Date(combinedString);
                     
                         const currentDate = new Date();
-                    
+                    console.log(data)
                         // Compare the two dates
                         if (providedDate > currentDate) {
                           curr.push(data);

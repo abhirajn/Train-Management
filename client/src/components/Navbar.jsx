@@ -39,11 +39,11 @@ const handleLogout = () => {
       console.error('Error:', error);
     });
 };
-console.log(logged)
+// console.log(logged)
   return (
     <div>
-        <div className='w-full h-9 bg-black '>
-
+        <div className='w-full h-4  bg-gray-900'>
+alkjkdshfkjhj
         </div>
 
 <div>
