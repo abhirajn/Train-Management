@@ -5,6 +5,98 @@ const jwt = require('jsonwebtoken');
 
 const router = express.Router();
 const secretKey = "abhi"
+
+router.post('/boookticket', async (req, res, next) => {
+  const {
+    userId,
+    trainNo,
+    trainName,
+    fromName,
+    toName,
+    fromStationNumber,
+    toStationNumber,
+    passengerNames,
+    passengerAge,
+    passengerGender,
+    totalTickets,
+    fromDate,
+    toDate,
+    fromTime,
+    toTime,
+    fare,
+    ticketStatus
+  } = req.body;
+  
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res.status(401).json({ message: 'No token, authorization denied' });
+  }
+
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ message: 'Token is not valid' });
+    }
+  });
+
+  const ticket = new Ticket(
+    userId,
+    trainNo,
+    trainName,
+    fromName,
+    toName,
+    fromStationNumber,
+    toStationNumber,
+    passengerNames,
+    passengerAge,
+    passengerGender,
+    totalTickets,
+    fromDate,
+    toDate,
+    fromTime,
+    toTime,
+    fare,
+    ticketStatus
+  );
+
+  // Start a database transaction
+  const connection = await db.getConnection();
+
+  try {
+    await connection.beginTransaction();
+
+    // Check seat availability with a lock
+    const availableSeats = await ticket.checkSeatAvailability(connection);
+
+    if (availableSeats < totalTickets) {
+      throw new Error('Not enough seats available');
+    }
+
+    // Update seat availability
+    const updated = await ticket.updateSeatAvailability(connection, totalTickets);
+
+    if (!updated) {
+      throw new Error('Failed to update seat availability');
+    }
+
+    // Book the ticket
+    await ticket.bookTicket(connection);
+
+    // Commit the transaction
+    await connection.commit();
+
+    res.send('Ticket successfully purchased');
+  } catch (err) {
+    // Rollback transaction on error
+    await connection.rollback();
+    res.status(500).json({ message: err.message });
+  } finally {
+    connection.release();
+  }
+});
+
+
+
 router.post('/bookticket' , async(req,res,next)=>{
     // console.log(req.body)
     const {userId  , trainNo , trainName , fromName , toName  , fromStationNumber , 

@@ -6,6 +6,17 @@ const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function TrainCard({prop , date}) {
     // console.log(prop)
+    // const timeString = "06:00";
+
+    // Parse the time string into hours and minutes
+    const [hours, minutes] = prop.startTime.split(':').map(Number);
+
+    // Create a Date object for the specified time today
+    const inputTime = new Date();
+    inputTime.setHours(hours, minutes, 0, 0); // Set to 06:00:00
+
+    // Get the current time
+    const currentTime = new Date();
     const[finalDate , setFinalDate] = useState('');
     const[sDate , setSDate] = useState('');
     const[finalTime , setFinalTime] = useState('');
@@ -204,36 +215,48 @@ const handleSubmit = () => {
     if(selectedDate.getDate() == dateofthemonth){
          if(prop.totalCapacity - one <= 0){
           toast.error("No seats left in the train on this date")
+         }if(currentTime > inputTime){
+          toast.error("train departed")
          }else{
           navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.fromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
          }
     }else if(selectedDate.getDate() == date2.getDate()){
       if(prop.totalCapacity - two <= 0){
         toast.error("No seats left in the train on this date")
+       }if(currentTime > inputTime){
+        toast.error("train departed")
        }else{
         navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.fromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
        }
     }else if(selectedDate.getDate() == date3.getDate()){
       if(prop.totalCapacity - three <= 0){
         toast.error("No seats left in the train on this date")
+       }if(currentTime > inputTime){
+        toast.error("train departed")
        }else{
         navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.fromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
        }
     }else if(selectedDate.getDate() == date4.getDate()){
       if(prop.totalCapacity - four <= 0){
         toast.error("No seats left in the train on this date")
+       }if(currentTime > inputTime){
+        toast.error("train departed")
        }else{
         navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.fromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
        }
     }else if(selectedDate.getDate() == date5.getDate()){
       if(prop.totalCapacity - five <= 0){
         toast.error("No seats left in the train on this date")
+       }if(currentTime > inputTime){
+        toast.error("train departed")
        }else{
         navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.fromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
        }
     }else if(selectedDate.getDate() == date6.getDate()){
       if(prop.totalCapacity - six <= 0){
         toast.error("No seats left in the train on this date")
+       }if(currentTime > inputTime){
+        toast.error("train departed")
        }else{
         navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.fromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
        }
@@ -287,7 +310,7 @@ useEffect(()=>{
       </div>
       
       <div className="mt-4 m-1 ml-4 ">
-        <button onClick={()=>{setSelectedDate(datee)}}  className= {selectedDate.getDate() == dateofthemonth && prop.totalCapacity - one > 0 ? " border-2 border-indigo-600  bg-gray-300  mr-3 text-left p-2 rounded  pr-9" : "border-2  bg-gray-300  mr-3 text-left p-2 rounded  pr-9 "}>  <span className='text-md font-bold'> {dayOfWeek}, {dateofthemonth} {monthsoftheyear[datee.getMonth()]}</span> <br></br> <span className={prop.totalCapacity - one > 0 ?'text-lg font-bold text-green-500' :'text-lg font-bold text-red-500 '}>AVAILABLE {prop.totalCapacity - one}</span> </button>
+        <button onClick={()=>{setSelectedDate(datee)}}  className= {selectedDate.getDate() == dateofthemonth && prop.totalCapacity - one > 0 ? " border-2 border-indigo-600  bg-gray-300  mr-3 text-left p-2 rounded  pr-9" : "border-2  bg-gray-300  mr-3 text-left p-2 rounded  pr-9 "}>  <span className='text-md font-bold'> {dayOfWeek}, {dateofthemonth} {monthsoftheyear[datee.getMonth()]}</span> <br></br> <span className={prop.totalCapacity - one > 0 ?'text-lg font-bold text-green-500' :'text-lg font-bold text-red-500 '}> AVAILABLE {prop.totalCapacity - one}</span> </button>
         <button onClick={()=>{setSelectedDate(date2)}} className= {selectedDate.getDate() == date2.getDate()  && prop.totalCapacity - two > 0 ? " border-2 border-indigo-600  bg-gray-300  mr-3 text-left p-2 rounded  pr-9" : "border-2  bg-gray-300  mr-3 text-left p-2 rounded  pr-9"}>  <span className='text-md font-bold'> {daysOfWeek[date2.getDay()]}, {date2.getDate()} {monthsoftheyear[date2.getMonth()]}</span> <br></br> <span className={prop.totalCapacity - two > 0 ?'text-lg font-bold text-green-500' :'text-lg font-bold text-red-500 '} >AVAILABLE {prop.totalCapacity - two}</span> </button>
         <button onClick={()=>{setSelectedDate(date3)}} className= {selectedDate.getDate() == date3.getDate()  && prop.totalCapacity - three > 0 ? " border-2 border-indigo-600  bg-gray-300  mr-3 text-left p-2 rounded  pr-9" : "border-2  bg-gray-300  mr-3 text-left p-2 rounded  pr-9"}>  <span className='text-md font-bold'> {daysOfWeek[date3.getDay()]}, {date3.getDate()} {monthsoftheyear[date3.getMonth()]}</span> <br></br> <span className={prop.totalCapacity - three > 0 ?'text-lg font-bold text-green-500' :'text-lg font-bold text-red-500 '} >AVAILABLE {prop.totalCapacity - three}</span> </button>
         <button onClick={()=>{setSelectedDate(date4)}} className= {selectedDate.getDate() == date4.getDate()  && prop.totalCapacity - four > 0 ? " border-2 border-indigo-600  bg-gray-300  mr-3 text-left p-2 rounded  pr-9" : "border-2  bg-gray-300  mr-3 text-left p-2 rounded  pr-9"}>  <span className='text-md font-bold'> {daysOfWeek[date4.getDay()]}, {date4.getDate()} {monthsoftheyear[date4.getMonth()]}</span> <br></br> <span className={prop.totalCapacity - four > 0 ?'text-lg font-bold text-green-500' :'text-lg font-bold text-red-500 '} >AVAILABLE {prop.totalCapacity - four}</span> </button>

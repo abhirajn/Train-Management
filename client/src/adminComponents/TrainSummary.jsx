@@ -51,7 +51,7 @@ const TrainSummary = () => {
 //   }
 // const trains = {}
 const handleChange = (event, newValue) => {
-  // console.log(newValue)
+  console.log(newValue)
   setFrom(newValue.label);
   // console.log('Selected value:', from);
 };
@@ -155,6 +155,7 @@ tempdate += d + "";
                   "status" : d.ticketStatus
                 };
                 tempass.push(sumne);
+                console.log("hiii" ,tempass);
                 if(data == 'male'){
                   tmen++;
                 }else if(data == 'female'){

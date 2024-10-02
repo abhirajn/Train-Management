@@ -25,6 +25,25 @@ class Ticket{
         this.ticketStatus = ticketStatus;
     }
 
+    async checkSeatAvailability(connection) {
+        // Query to check available seats
+        const [rows] = await connection.execute(
+          `SELECT availableSeats FROM Trains WHERE trainNo = ? FOR UPDATE`, [this.trainNo]
+        );
+        if (rows.length === 0) {
+          throw new Error('Train not found.');
+        }
+        return rows[0].availableSeats;
+      }
+    
+      async updateSeatAvailability(connection, seatsToBook) {
+        // Update the seat availability in the database
+        const [result] = await connection.execute(
+          `UPDATE Trains SET availableSeats = availableSeats - ? WHERE trainNo = ?`, [seatsToBook, this.trainNo]
+        );
+        return result.affectedRows;
+      }
+
     async bookTicket(){
         let sql = `INSERT INTO Tickets (userId  , trainNo , trainName , fromName , toName  , fromStationNumber , toStationNumber  , passengerNames , passengerAge , passengerGender , totalTickets, fromDate, toDate ,fromTime , toTime,fare,ticketStatus)
         VALUES(
