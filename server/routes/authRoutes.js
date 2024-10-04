@@ -82,9 +82,10 @@ router.post('/login', async (req, res, next) => {
 
 
 router.get('/checklogged' , async(req, res)=>{
-// console.log("hi")
-// console.log("hi1")
+console.log("hi")
+console.log("hi1")
   const token = req.cookies.token;
+  console.log(token)
   if (!token) {
     // console.log("hi2")
     return res.status(401).json({ message: 'No token, authorization denied' });

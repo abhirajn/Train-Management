@@ -8,7 +8,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors')
 const app = express();
 app.use(cors({
-    origin: 'https://train-management-1.onrender.com' ,  // Replace with your frontend domain
+    origin: 'https://train-management-1.onrender.com' ,
+    methods: 'GET,POST',  // Replace with your frontend domain
     credentials: true, // Allow credentials (cookies, authorization headers, etc.)
   }));
 
