@@ -45,7 +45,7 @@ class Ticket{
       }
 
     async bookTicket(){
-        let sql = `INSERT INTO Tickets (userId  , trainNo , trainName , fromName , toName  , fromStationNumber , toStationNumber  , passengerNames , passengerAge , passengerGender , totalTickets, fromDate, toDate ,fromTime , toTime,fare,ticketStatus)
+        let sql = `INSERT INTO tickets (userId  , trainNo , trainName , fromName , toName  , fromStationNumber , toStationNumber  , passengerNames , passengerAge , passengerGender , totalTickets, fromDate, toDate ,fromTime , toTime,fare,ticketStatus)
         VALUES(
             '${this.userId}',
             ${this.trainNo},
@@ -87,7 +87,7 @@ let dateStringOutput = dateObject.toString().substring(0,15);
 // console.log(dateStringOutput);
 
         let sql = `SELECT SUM(totalTickets) AS total_tickets 
-        FROM Tickets
+        FROM tickets
         WHERE fromDate = '${dateStringOutput}'
         AND trainNo = ${trainNo}
         AND toStationNumber > ${fromNumber};`
@@ -105,20 +105,21 @@ let dateStringOutput = dateObject.toString().substring(0,15);
     }
 
     static async getAllTicketsOfaUser(username){
-        let sql = `SELECT * FROM Tickets WHERE userId = '${username}';`
+        let sql = `SELECT * FROM tickets WHERE userId = '${username}';`
         return db.execute(sql);
     }
 
     static async getAllInfoFromPNR(pnr){
-        let sql = `SELECT * FROM Tickets WHERE pnrNumber = ${pnr};`
+        let sql = `SELECT * FROM tickets WHERE pnrNumber = ${pnr};`
         return db.execute(sql);
     }
 
     static async cancelTicket(pnr){
-        let sql = `UPDATE Tickets SET ticketStatus = "Canceled" WHERE pnrNumber = ${pnr};`
+        let sql = `UPDATE tickets SET ticketStatus = "Canceled" WHERE pnrNumber = ${pnr};`
         return db.execute(sql);
     }
     static async getAllTicketsforSummary(trainNo , fromname, toname, date){
+        console.log(date)
         let sql = `SELECT * FROM tickets WHERE 
             trainNo = ${trainNo}    
             AND fromName = '${fromname}'

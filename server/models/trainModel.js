@@ -19,7 +19,7 @@ class Train{
 
 
     async save(){
-        let sql = `INSERT INTO Trains (trainName , trainNumber , fromStation , toStation , fromStationNumber , toStationNumber , startTime  ,duration, status,totalCapacity,fare)
+        let sql = `INSERT INTO trains (trainName , trainNumber , fromStation , toStation , fromStationNumber , toStationNumber , startTime  ,duration, status,totalCapacity,fare)
         VALUES(
         '${this.trainName}',
         ${this.trainNumber},
@@ -41,7 +41,7 @@ class Train{
 
     static async getAllBetweenTwo(from , to){
         let sql = `SELECT *
-        FROM Trains
+        FROM trains
         WHERE fromStation = '${from}'
         AND toStation = '${to}' 
         AND status = 'Running';`
@@ -70,14 +70,14 @@ class Train{
     }
 
     static async getTrainDetailsFromNumber(tno,fromStationNumber ,toStationNumber){
-        let sql= `SELECT * FROM Trains WHERE trainNumber = ${tno} AND fromStationNumber = ${fromStationNumber} AND toStationNumber = ${toStationNumber}`
+        let sql= `SELECT * FROM trains WHERE trainNumber = ${tno} AND fromStationNumber = ${fromStationNumber} AND toStationNumber = ${toStationNumber}`
         return db.execute(sql);
     }
 
 
     static async updateTrainValues(trainName , trainNumber , fromStation , toStation , fromStationNumber , toStationNumber , startTime  ,duration, status,totalCapacity,fare){
        console.log(trainNumber , typeof trainNumber)
-        let sql = `UPDATE Trains
+        let sql = `UPDATE trains
         SET trainName = '${trainName}',
         fromStation = '${fromStation}',
         toStation = '${toStation}',
@@ -94,7 +94,7 @@ class Train{
     
     static async updateAllTrainValues(trainName , trainNumber , fromStation , toStation , fromStationNumber , toStationNumber , startTime  ,duration, status,totalCapacity,fare){
         console.log(trainNumber , typeof trainNumber)
-         let sql = `UPDATE Trains
+         let sql = `UPDATE trains
          SET trainName = '${trainName}',
          fromStation = '${fromStation}',
          toStation = '${toStation}',
@@ -137,7 +137,7 @@ return db.execute(sql);
 
      static async getAllBetweenTwoadmin(from , to){
         let sql = `SELECT *
-        FROM Trains
+        FROM trains
         WHERE fromStation = '${from}'
         AND toStation = '${to}';`
         

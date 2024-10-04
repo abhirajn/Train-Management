@@ -125,7 +125,7 @@ router.post('/getAllTicketsforSummary', async(req,res)=>{
     const {trainNo , fromname, toname, date} = req.body;
     // console.log(req.body)
     const resp = await Ticket.getAllTicketsforSummary(Number(trainNo) , fromname, toname, date);
-    // console.log(resp[0]);
+    console.log(resp[0]);
     res.json(resp[0])
 
 })

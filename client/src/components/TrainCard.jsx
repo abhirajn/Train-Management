@@ -220,47 +220,51 @@ const handleSubmit = () => {
          }else{
           navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.fromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
          }
-    }else if(selectedDate.getDate() == date2.getDate()){
-      if(prop.totalCapacity - two <= 0){
-        toast.error("No seats left in the train on this date")
-       }if(currentTime > inputTime){
-        toast.error("train departed")
-       }else{
-        navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.fromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
-       }
-    }else if(selectedDate.getDate() == date3.getDate()){
-      if(prop.totalCapacity - three <= 0){
-        toast.error("No seats left in the train on this date")
-       }if(currentTime > inputTime){
-        toast.error("train departed")
-       }else{
-        navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.fromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
-       }
-    }else if(selectedDate.getDate() == date4.getDate()){
-      if(prop.totalCapacity - four <= 0){
-        toast.error("No seats left in the train on this date")
-       }if(currentTime > inputTime){
-        toast.error("train departed")
-       }else{
-        navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.fromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
-       }
-    }else if(selectedDate.getDate() == date5.getDate()){
-      if(prop.totalCapacity - five <= 0){
-        toast.error("No seats left in the train on this date")
-       }if(currentTime > inputTime){
-        toast.error("train departed")
-       }else{
-        navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.fromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
-       }
-    }else if(selectedDate.getDate() == date6.getDate()){
-      if(prop.totalCapacity - six <= 0){
-        toast.error("No seats left in the train on this date")
-       }if(currentTime > inputTime){
-        toast.error("train departed")
-       }else{
-        navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.fromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
-       }
+    }else{
+      navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.fromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
+
     }
+    // else if(selectedDate.getDate() == date2.getDate()){
+    //   if(prop.totalCapacity - two <= 0){
+    //     toast.error("No seats left in the train on this date")
+    //    }if(currentTime > inputTime){
+    //     toast.error("train departed")
+    //    }else{
+    //     navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.fromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
+    //    }
+    // }else if(selectedDate.getDate() == date3.getDate()){
+    //   if(prop.totalCapacity - three <= 0){
+    //     toast.error("No seats left in the train on this date")
+    //    }if(currentTime > inputTime){
+    //     toast.error("train departed")
+    //    }else{
+    //     navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.fromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
+    //    }
+    // }else if(selectedDate.getDate() == date4.getDate()){
+    //   if(prop.totalCapacity - four <= 0){
+    //     toast.error("No seats left in the train on this date")
+    //    }if(currentTime > inputTime){
+    //     toast.error("train departed")
+    //    }else{
+    //     navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.fromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
+    //    }
+    // }else if(selectedDate.getDate() == date5.getDate()){
+    //   if(prop.totalCapacity - five <= 0){
+    //     toast.error("No seats left in the train on this date")
+    //    }if(currentTime > inputTime){
+    //     toast.error("train departed")
+    //    }else{
+    //     navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.fromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
+    //    }
+    // }else if(selectedDate.getDate() == date6.getDate()){
+    //   if(prop.totalCapacity - six <= 0){
+    //     toast.error("No seats left in the train on this date")
+    //    }if(currentTime > inputTime){
+    //     toast.error("train departed")
+    //    }else{
+    //     navigate(`/bookTicket?from=${prop.fromStation}&to=${prop.toStation}&date=${selectedDate}&trainNo=${prop.trainNumber}&trainName=${prop.trainName}&FromStationNumber=${prop.fromStationNumber}&toStationNumber=${prop.toStationNumber}&endDate=${finalDate}&endTime=${finalTime}&fare=${prop.fare}&starttime=${prop.startTime}&duration=${prop.duration}`);
+    //    }
+    // }
 }
 
 useEffect(()=>{

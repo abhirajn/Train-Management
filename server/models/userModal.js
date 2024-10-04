@@ -9,7 +9,7 @@ class User{
     }
 
     async save(){
-        let sql = `INSERT INTO Users(username , name , phone , password)
+        let sql = `INSERT INTO users(username , name , phone , password)
         VALUES(
             '${this.username}',
             '${this.name}',
@@ -23,17 +23,17 @@ class User{
     }
 
     static async checkIfUserExist(username){
-        let sql = `SELECT * FROM Users WHERE username = '${username}';`
+        let sql = `SELECT * FROM users WHERE username = '${username}';`
         return db.execute(sql);
     }
 
     static async checkEmailMathches(username){
-        let sql = `SELECT password FROM Users WHERE username = '${username}';`
+        let sql = `SELECT password FROM users WHERE username = '${username}';`
         return db.execute(sql);
     }
 
     static async getPhonebyEmail(username){
-        let sql = `SELECT phone FROM Users WHERE username = '${username}';`
+        let sql = `SELECT phone FROM users WHERE username = '${username}';`
         return db.execute(sql);
     }
     

@@ -97,7 +97,17 @@ const handleDateChange = (e) => {
   // console.log(options)
   const formattedDate = date.toLocaleDateString('en-US', options);
   const temparr = formattedDate.split(",")
+  const newtemparr = temparr[1].split(" ");
+  if(newtemparr[2].length == 1){
+    newtemparr[2] = "0"+newtemparr[2];
+  }
+var sumnestring = "";
+sumnestring += " " + newtemparr[1];
+sumnestring += " " + newtemparr[2];
+  temparr[1] = sumnestring;
+  console.log(temparr)
   var tempdate = "";
+
   temparr.map((d)=>{
 tempdate += d + "";
   })
@@ -117,6 +127,7 @@ tempdate += d + "";
   })
 
   const fun = async() => {
+    // console.log("hi")
     if(selectedDate == null){
       try {
         const r = await axios.post(`${apiUrl}/admin/getAllTicketsforSummary`, {
@@ -137,7 +148,7 @@ tempdate += d + "";
           var tmore60 = 0;
           var tcan = 0;
           resp.data.map((d)=>{
-              
+           
               const passengerNames = d.passengerNames.split(",")
               const passengerAges = d.passengerAge.split(",")
               const passengerGender = d.passengerGender.split(",")
@@ -195,7 +206,7 @@ setCanceled(tcan)
             withCredentials : true
           }).then((resp)=>{
             setTicketinfo(resp.data)
-            // console.log(resp.data)
+            console.log(resp.data)
             var tempass = [];
             var tmen = 0;
             var twomen = 0;
@@ -204,7 +215,9 @@ setCanceled(tcan)
             var tfto60 = 0;
             var tmore60 = 0;
             var tcan = 0;
+
             resp.data.map((d)=>{
+             
               const passengerNames = d.passengerNames.split(",")
               const passengerAges = d.passengerAge.split(",")
               const passengerGender = d.passengerGender.split(",")
