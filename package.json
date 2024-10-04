@@ -1,0 +1,15 @@
+{
+  "name": "irctc",
+  "version": "1.0.0",
+  "description": "The **Train Reservation and Management System** is a web application designed to manage train ticket bookings. It allows users to view train schedules, check seat availability, and make reservations. The backend efficiently handles concurrent booking requests using MySQL transactions, ensuring data consistency in high-demand scenarios.",
+  "main": "index.js",
+  "scripts": {
+    "install-server": "cd server && npm install",
+    "start-server":"cd server && node index.js",
+    "install-client": "cd client && npm install",
+    "build-client" : "cd client && npm run build",
+    "start-client": "cd client && npm run dev"
+  },
+  "author": "",
+  "license": "ISC"
+}
