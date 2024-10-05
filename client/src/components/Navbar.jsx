@@ -43,7 +43,7 @@ const handleLogout = () => {
   return (
     <div>
         <div className='w-full h-4  bg-gray-900'>
-alkjkdshfkjhj
+
         </div>
 
 <div>

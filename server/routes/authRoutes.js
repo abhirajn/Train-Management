@@ -36,7 +36,7 @@ router.post('/register', async (req, res, next) => {
       res.cookie('token', token, {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production', // Set to true in production (HTTPS)
-          sameSite: 'Strict', // Adjust according to your needs (Strict, Lax, None)
+          sameSite: 'None', // Adjust according to your needs (Strict, Lax, None)
       });
 
       res.status(200).json({ message: 'User registered successfully' });
@@ -67,7 +67,7 @@ router.post('/login', async (req, res, next) => {
               res.cookie('token', token, {
                   httpOnly: true,
                   secure: process.env.NODE_ENV === 'production', // Set to true in production (HTTPS)
-                  sameSite: 'Strict', // Adjust according to your needs (Strict, Lax, None)
+                  sameSite: 'None', // Adjust according to your needs (Strict, Lax, None)
               });
       }else{
         return res.status(400).json({ message: 'Wrong password' });
