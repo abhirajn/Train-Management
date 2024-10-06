@@ -2,7 +2,7 @@ const express = require('express');
 const Train = require('../models/trainModel');
 const Ticket = require('../models/ticketModal');
 const jwt = require('jsonwebtoken');
-
+const db = require("../config/db")
 const router = express.Router();
 const secretKey = "abhi"
 
@@ -95,15 +95,98 @@ router.post('/boookticket', async (req, res, next) => {
   }
 });
 
+router.post('/asdftick', async (req,res)=>{
+  
+  const {userId  , trainNo , trainName , fromName , toName  , fromStationNumber , 
+    toStationNumber  , passengerNames , passengerAge , passengerGender , totalTickets, fromDate, 
+    toDate ,fromTime , toTime,fare ,ticketStatus} = req.body;
+    let connection;
+    try {
+        // Step 1: Get a connection from the pool
+        connection = await db.getConnection();
+
+        // Step 2: Start the transaction
+        await connection.beginTransaction();
+
+        // Step 3: Get total booked tickets for the train
+        const [bookedTicketsResult] = await connection.query(
+            'SELECT SUM(totalTickets) AS totalBooked FROM tickets WHERE fromDate = ? AND toStationNumber > ? AND trainNo = ? FOR UPDATE',
+            [fromDate, fromStationNumber, trainNo]
+        );
+
+        const totalBooked = bookedTicketsResult[0]?.totalBooked || 0;
+
+        // Step 4: Get the total capacity of the train
+        const [capacityResult] = await connection.query(
+            'SELECT totalCapacity FROM trains WHERE trainNumber = ? FOR UPDATE',
+            [trainNo]
+        );
+
+        const totalCapacity = capacityResult[0]?.totalCapacity;
+        console.log(totalBooked , totalTickets , totalCapacity)
+        // Step 5: Check if there are enough seats available
+        if (Number(totalBooked) + Number(totalTickets) <= Number(totalCapacity)) {
+            // Proceed with booking the ticket
+            console.log("inside if")
+            await connection.query(
+              'INSERT INTO tickets (userId  , trainNo , trainName , fromName , toName  , fromStationNumber , toStationNumber  , passengerNames , passengerAge , passengerGender , totalTickets, fromDate, toDate ,fromTime , toTime,fare,ticketStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+              [userId  , trainNo , trainName , fromName , toName  , fromStationNumber , toStationNumber  , passengerNames , passengerAge , passengerGender , totalTickets, fromDate, toDate ,fromTime , toTime,fare,ticketStatus]
+          );
+            // INSERT INTO tickets (userId  , trainNo , trainName , fromName , toName  , fromStationNumber , toStationNumber  , passengerNames , passengerAge , passengerGender , totalTickets, fromDate, toDate ,fromTime , toTime,fare,ticketStatus)
+            // VALUES(
+            //     '${this.userId}',
+            //     ${this.trainNo},
+            //     '${this.trainName}',
+            //     '${this.fromName}',
+            //     '${this.toName}',
+            //     ${this.fromStationNumber},
+            //     ${this.toStationNumber},
+            //     '${this.passengerNames}',
+            //     '${this.passengerAge}',
+            //     '${this.passengerGender}',
+            //     ${this.totalTickets},
+            //     '${this.fromDate}',
+            //     '${this.toDate}',
+            //     '${this.fromTime}',
+            //     '${this.toTime}',
+            //     ${this.fare},
+            //     '${this.ticketStatus}'
+            // );`
+            // const { passengerNames, passengerAge, passengerGender } = passengerDetails;
+          //  console.log("bboked" + req.body);
+
+            // Step 6: Commit the transaction
+            await connection.commit();
+            res.send("Ticket successfully purchased");
+        } else {
+            // Step 7: Rollback if no seats available
+            console.log("else")
+            await connection.rollback();
+            res.status(401).json({ message: 'No seats available' });
+        }
+    } catch (error) {
+        // Step 8: Handle errors and rollback if anything goes wrong
+        console.log("error")
+        if (connection) await connection.rollback();
+        console.error('Transaction failed:', error);
+        res.status(500).json({ message: 'Booking failed, please try again later.' });
+    } finally {
+        // Step 9: Release the connection back to the pool
+        console.log("finally")
+        if (connection) connection.release();
+    }
 
 
+})
 router.post('/bookticket' , async(req,res,next)=>{
     // console.log(req.body)
+    let connection;
+   
     const {userId  , trainNo , trainName , fromName , toName  , fromStationNumber , 
       toStationNumber  , passengerNames , passengerAge , passengerGender , totalTickets, fromDate, 
       toDate ,fromTime , toTime,fare ,ticketStatus} = req.body;
     const token = req.cookies.token;
-    console.log(token)
+    // console.log(req.body)
     if (!token) {
         return res.status(401).json({ message: 'No token, authorization denied' });
       }
@@ -112,12 +195,39 @@ router.post('/bookticket' , async(req,res,next)=>{
           return res.status(401).json({ message: 'Token is not valid' });
         }
       })
-    const ticket = new Ticket(userId  , trainNo , trainName , fromName , toName  , fromStationNumber , 
-      toStationNumber  , passengerNames , passengerAge , passengerGender , totalTickets, fromDate, 
-      toDate ,fromTime , toTime,fare ,ticketStatus);
-    await ticket.bookTicket();
-    res.send("succesfully ticket p;purchased");
+     
+    try {
+      connection = await db.getConnection();
 
+      // Step 2: Start the transaction
+      await connection.beginTransaction();
+      var temp = await Ticket.get_total_booked_tickets(fromDate  , fromStationNumber , trainNo).then(async(result)=>{
+        // console.log("result", result);
+        var newtemp = await Ticket.get_total_capacity_of_the_train(trainNo).then(async(capa)=>{
+          // console.log("capa" , Number(result)+totalTickets)
+          // console.log("capa2" , Number(capa))
+          if(Number(result)+totalTickets <= Number(capa)){
+            const ticket = new Ticket(userId  , trainNo , trainName , fromName , toName  , fromStationNumber , 
+              toStationNumber  , passengerNames , passengerAge , passengerGender , totalTickets, fromDate, 
+              toDate ,fromTime , toTime,fare ,ticketStatus);
+            await ticket.bookTicket();
+            await connection.commit();
+            res.send("succesfully ticket p;purchased");
+          }else{
+            await connection.rollback();
+            return res.status(401).json({ message: 'No seats available' }); 
+          }
+        })
+      })
+    } catch (error) {
+      if (connection) await connection.rollback();
+      console.error('Transaction failed:', error);
+      res.status(500).json({ message: 'Booking failed, please try again later.' });
+    }finally{
+      if (connection) connection.release();
+    }
+   
+      
 })
 
 router.post('/getavailableSeats' , async(req ,res ,next)=>{

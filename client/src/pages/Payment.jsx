@@ -112,7 +112,7 @@ useEffect(()=>{
 const handleBook = () => {
   // calculatefinaldate(startdateSting.substring(0,15) , state.starttime , state.duration)
   const fun = async() => {
-    const resp =  await axios.post(`${apiUrl}/api/bookticket`, {
+    const resp =  await axios.post(`${apiUrl}/api/asdftick`, {
       "userId" : user,
        "trainNo" : state.trainNo,
       "trainName" : state.trainName, 
@@ -141,7 +141,13 @@ const handleBook = () => {
     })
     // navigate('/')
     
-  });
+  }).catch(()=>{
+    toast.error("No seats available", {
+      position: "top-center",
+      autoClose: 1000,
+      // onClose : () => navigate('/')
+    })
+  })
 }
 
   return (

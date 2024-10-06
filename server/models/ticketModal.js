@@ -44,34 +44,7 @@ class Ticket{
         return result.affectedRows;
       }
 
-    async bookTicket(){
-        let sql = `INSERT INTO tickets (userId  , trainNo , trainName , fromName , toName  , fromStationNumber , toStationNumber  , passengerNames , passengerAge , passengerGender , totalTickets, fromDate, toDate ,fromTime , toTime,fare,ticketStatus)
-        VALUES(
-            '${this.userId}',
-            ${this.trainNo},
-            '${this.trainName}',
-            '${this.fromName}',
-            '${this.toName}',
-            ${this.fromStationNumber},
-            ${this.toStationNumber},
-            '${this.passengerNames}',
-            '${this.passengerAge}',
-            '${this.passengerGender}',
-            ${this.totalTickets},
-            '${this.fromDate}',
-            '${this.toDate}',
-            '${this.fromTime}',
-            '${this.toTime}',
-            ${this.fare},
-            '${this.ticketStatus}'
-        );`
-
-        const res = await db.execute(sql);
-        return res;
-    }
-
-
-    static async get_No_BookedTickets(trainDate  , fromNumber , toNumber , trainNo){
+      static async get_No_BookedTickets(trainDate  , fromNumber , toNumber , trainNo){
         // console.log(trainNo)
         let dateParts = trainDate.split('-');
 
@@ -103,6 +76,77 @@ let dateStringOutput = dateObject.toString().substring(0,15);
          
         return {value : t};
     }
+
+
+  static async get_total_booked_tickets(trainDate  , fromNumber ,  trainNo){
+        // console.log(trainNo)
+      
+
+        let sql = `SELECT SUM(totalTickets) AS total_tickets 
+        FROM tickets
+        WHERE fromDate = '${trainDate}'
+        AND trainNo = ${trainNo}
+        AND toStationNumber > ${fromNumber};`
+        
+        const res = await db.execute(sql);
+        // console.log(typeof res[0])
+        // console.log("res" , res[0][0].total_tickets);
+        var t = 0;
+        if(res[0][0].total_tickets){
+            t = Number(res[0][0].total_tickets);
+        }
+        // console.log(res)
+         
+        return t;
+    }
+
+    static async get_total_capacity_of_the_train(trainNo){
+        // console.log(trainNo)
+      
+
+        let sql = `SELECT totalCapacity  
+        FROM trains
+        WHERE trainNumber = ${trainNo};`
+        
+        const res = await db.execute(sql);
+        // console.log(res[0][0].totalCapacity)
+        // console.log("res" , res[0][0].total_tickets);
+      
+         
+        return res[0][0].totalCapacity;
+    }
+
+    async bookTicket(){
+        
+            let sql = `INSERT INTO tickets (userId  , trainNo , trainName , fromName , toName  , fromStationNumber , toStationNumber  , passengerNames , passengerAge , passengerGender , totalTickets, fromDate, toDate ,fromTime , toTime,fare,ticketStatus)
+            VALUES(
+                '${this.userId}',
+                ${this.trainNo},
+                '${this.trainName}',
+                '${this.fromName}',
+                '${this.toName}',
+                ${this.fromStationNumber},
+                ${this.toStationNumber},
+                '${this.passengerNames}',
+                '${this.passengerAge}',
+                '${this.passengerGender}',
+                ${this.totalTickets},
+                '${this.fromDate}',
+                '${this.toDate}',
+                '${this.fromTime}',
+                '${this.toTime}',
+                ${this.fare},
+                '${this.ticketStatus}'
+            );`
+    
+            const res = await db.execute(sql);
+            return res;
+        
+       
+    }
+
+
+   
 
     static async getAllTicketsOfaUser(username){
         let sql = `SELECT * FROM tickets WHERE userId = '${username}';`

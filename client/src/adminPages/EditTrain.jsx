@@ -162,7 +162,7 @@ const EditTrain = ({adminlogged ,setAdminlogged}) => {
             name="trainName"
             value={tno}
             onChange={(e)=>{setTno(e.target.value)}}
-            required
+            // required
             className="w-full px-3 py-2 border-2 border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -174,7 +174,7 @@ const EditTrain = ({adminlogged ,setAdminlogged}) => {
             name="fromtrainName"
             value={frnum}
             onChange={(e)=>{setFrnum(e.target.value)}}
-            required
+            // required
             className="w-full px-3 py-2 border-2 border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -186,7 +186,7 @@ const EditTrain = ({adminlogged ,setAdminlogged}) => {
             name="totrainName"
             value={tonum}
             onChange={(e)=>{setTonum(e.target.value)}}
-            required
+            // required
             className="w-full px-3 py-2 border-2 border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -207,7 +207,7 @@ const EditTrain = ({adminlogged ,setAdminlogged}) => {
             name="trainName"
             value={trainDetails.trainName}
             onChange={handleChange}
-            required
+            // required
             className="w-full px-3 py-2 border-2 border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -219,7 +219,7 @@ const EditTrain = ({adminlogged ,setAdminlogged}) => {
             name="trainNumber"
             value={trainDetails.trainNumber}
             onChange={handleChange}
-            required
+            // required
             className="w-full px-3 py-2 border-2 border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -232,7 +232,7 @@ const EditTrain = ({adminlogged ,setAdminlogged}) => {
             name="fromStation"
             value={trainDetails.fromStation}
             onChange={handleChange}
-            required
+            // required
             className="w-full px-3 py-2 border-2 border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -244,7 +244,7 @@ const EditTrain = ({adminlogged ,setAdminlogged}) => {
             name="toStation"
             value={trainDetails.toStation}
             onChange={handleChange}
-            required
+            // required
             className="w-full px-3 py-2 border-2 border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -258,7 +258,7 @@ const EditTrain = ({adminlogged ,setAdminlogged}) => {
             name="fromStationNumber"
             value={trainDetails.fromStationNumber}
             onChange={handleChange}
-            required
+            // required
             className="w-full px-3 py-2 border-2 border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -270,7 +270,7 @@ const EditTrain = ({adminlogged ,setAdminlogged}) => {
             name="toStationNumber"
             value={trainDetails.toStationNumber}
             onChange={handleChange}
-            required
+            // required
             className="w-full px-3 py-2 border-2 border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -284,7 +284,7 @@ const EditTrain = ({adminlogged ,setAdminlogged}) => {
             name="startTime"
             value={trainDetails.startTime}
             onChange={handleChange}
-            required
+            // required
             className="w-52 px-3 py-2 border-2 border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -296,7 +296,7 @@ const EditTrain = ({adminlogged ,setAdminlogged}) => {
             name="duration"
             value={trainDetails.duration}
             onChange={handleChange}
-            required
+            // required
             className="w-52 px-3 py-2 border-2 border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -312,7 +312,7 @@ const EditTrain = ({adminlogged ,setAdminlogged}) => {
             name="status"
             value={trainDetails.status}
             onChange={handleChange}
-            required
+            // required
             className="w-52 px-3 py-2 border-2 border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="Running">Running</option>
@@ -327,7 +327,7 @@ const EditTrain = ({adminlogged ,setAdminlogged}) => {
             name="totalCapacity"
             value={trainDetails.totalCapacity}
             onChange={handleChange}
-            required
+            // required
             className="w-52 px-3 py-2 border-2 border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -340,7 +340,7 @@ const EditTrain = ({adminlogged ,setAdminlogged}) => {
             name="fare"
             value={trainDetails.fare}
             onChange={handleChange}
-            required
+            // required
             className="w-full px-3 py-2 border-2 border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>

@@ -93,19 +93,19 @@ class Train{
     }
     
     static async updateAllTrainValues(trainName , trainNumber , fromStation , toStation , fromStationNumber , toStationNumber , startTime  ,duration, status,totalCapacity,fare){
-        console.log(trainNumber , typeof trainNumber)
+        console.log(fare , typeof totalCapacity)
          let sql = `UPDATE trains
          SET trainName = '${trainName}',
-         fromStation = '${fromStation}',
-         toStation = '${toStation}',
-         fromStationNumber = ${fromStationNumber},
-         toStationNumber = ${toStationNumber},
-         startTime = '${startTime}', 
-         duration = '${duration}',
-         status = '${status}',
-         totalCapacity = ${totalCapacity},
-         fare = ${fare}
-         WHERE trainNumber = ${trainNumber};`
+         status = '${status}'`;
+         if (totalCapacity !== undefined && totalCapacity !== null && totalCapacity.length > 0 ) {
+            sql += `, totalCapacity = ${totalCapacity}`;
+          }
+          
+          if (fare !== undefined && fare !== null && fare.length > 0) {
+            sql += `, fare = ${fare}`;
+          }
+          
+          sql += ` WHERE trainNumber = ${trainNumber};`;
          return db.execute(sql);
      }
 
