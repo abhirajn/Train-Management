@@ -433,7 +433,7 @@ console.log(tcan)
             <p><strong>Status:</strong> <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-md font-medium ${state.status === 'Running' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>{state.status}</span></p>
           </div>
         </div>
-        <Link to="/admin/home" className="text-blue-500 hover:underline">Back to Home</Link>
+        <Link to="/ad_home" className="text-blue-500 hover:underline">Back to Home</Link>
       </div>
 
       <div className='m-16 flex justify-between'>

@@ -23,7 +23,7 @@ const Sidebar = ({adminlogged ,setAdminlogged}) => {
       <h2 className="relative text-2xl font-semibold mb-10 ">Admin Portal</h2>
       <nav className="space-y-2">
         <NavLink
-          to="/admin/home"
+          to="/ad_home"
           className={({ isActive }) =>
             `block py-2 px-4 ${isActive ? 'bg-blue-800' : ''}`
           }
@@ -31,7 +31,7 @@ const Sidebar = ({adminlogged ,setAdminlogged}) => {
           Home
         </NavLink>
         <NavLink
-          to="/admin/addTrain"
+          to="/ad_addTrain"
           className={({ isActive }) =>
             `block py-2 px-4 ${isActive ? 'bg-blue-800' : ''}`
           }
@@ -39,7 +39,7 @@ const Sidebar = ({adminlogged ,setAdminlogged}) => {
           Add Train
         </NavLink>
         <NavLink
-          to="/admin/editTrain"
+          to="/ad_editTrain"
           className={({ isActive }) =>
             `block py-2 px-4 ${isActive ? 'bg-blue-800' : ''}`
           }
@@ -47,7 +47,7 @@ const Sidebar = ({adminlogged ,setAdminlogged}) => {
           Edit Train
         </NavLink>
         <NavLink
-          to="/admin/groupadd"
+          to="/ad_groupadd"
           className={({ isActive }) =>
             `block py-2 px-4 ${isActive ? 'bg-blue-800' : ''}`
           }
@@ -62,7 +62,7 @@ const Sidebar = ({adminlogged ,setAdminlogged}) => {
         
         </div></> 
       :<div className='flex'>
-        <button onClick={()=>{navigate('/admin/login')}} type="button" className="mr-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-xl rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
+        <button onClick={()=>{navigate('/ad_login')}} type="button" className="mr-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-xl rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
         {/* <button onClick={()=>{navigate('/register')}} type="button" className="ml-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Register</button> */}
         </div>}
       </div>

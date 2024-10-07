@@ -49,12 +49,12 @@ function App() {
         <Route path='/myBookings' element={<MyBookings  logged={logged} setLogged={setLogged} />} />
         <Route path='/cancelTicket' element={<CancelTicket  logged={logged} setLogged={setLogged} />} />
          <Route path='/pnrEnquiry' element={<PNREnquiry  logged={logged} setLogged={setLogged} />} />
-         <Route path='/admin/home' element={<AdminHome adminlogged = {adminlogged}  setAdminlogged={setAdminlogged}/>}/>
-        <Route path='/admin/addTrain' element={<AddTrains adminlogged = {adminlogged}  setAdminlogged={setAdminlogged}/>} />
-        <Route path='/admin/editTrain' element={<EditTrain adminlogged = {adminlogged}  setAdminlogged={setAdminlogged}/>} />
-        <Route path='/admin/login' element={<AdminLogin adminlogged = {adminlogged}  setAdminlogged={setAdminlogged}/>} />
-        <Route path='/admin/trainSummary' element={<AdminTrainSummary adminlogged = {adminlogged}  setAdminlogged={setAdminlogged}/>}/>
-        <Route path='/admin/groupadd' element={<AdminGroupAdd/>} />
+         <Route path='/ad_home' element={<AdminHome adminlogged = {adminlogged}  setAdminlogged={setAdminlogged}/>}/>
+        <Route path='/ad_addTrain' element={<AddTrains adminlogged = {adminlogged}  setAdminlogged={setAdminlogged}/>} />
+        <Route path='/ad_editTrain' element={<EditTrain adminlogged = {adminlogged}  setAdminlogged={setAdminlogged}/>} />
+        <Route path='/ad_login' element={<AdminLogin adminlogged = {adminlogged}  setAdminlogged={setAdminlogged}/>} />
+        <Route path='/ad_trainSummary' element={<AdminTrainSummary adminlogged = {adminlogged}  setAdminlogged={setAdminlogged}/>}/>
+        <Route path='/ad_groupadd' element={<AdminGroupAdd/>} />
       </Routes>
     </BrowserRouter>
     </>

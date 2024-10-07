@@ -30,7 +30,7 @@ const[pass , setPass] = useState('');
               toast.success("User Logged in");
               // setLogged(true)
               setAdminlogged(true)
-              navigate('/admin/home')
+              navigate('/ad_home')
         } catch (error) {
             // console.log("HI", error.response.data.message)
             setAdminlogged(false)

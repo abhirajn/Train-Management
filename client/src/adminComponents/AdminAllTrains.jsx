@@ -73,7 +73,7 @@ const AdminAllTrains = ({adminlogged , setAdminlogged}) => {
           toast.error("login first", {
             position: "top-center",
             autoClose: 1000,
-            onClose : () => navigate('/admin/login')
+            onClose : () => navigate('/ad_login')
           })
           console.error(error);
           
@@ -188,7 +188,7 @@ console.log(trains)
             </div>
 
             <div className="relative">
-              <button onClick={()=>{navigate('/admin/login')}} className="p-2 bg-gray-200 rounded-full focus:outline-none disabled">
+              <button onClick={()=>{navigate('/ad_login')}} className="p-2 bg-gray-200 rounded-full focus:outline-none disabled">
                 <span className="material-icons">Login</span>
               </button>
               <div className="absolute right-0 w-48 mt-2 bg-white shadow-lg rounded p-4 hidden">
@@ -214,7 +214,7 @@ console.log(trains)
             </thead>
             <tbody className="bg-white divide-y divide-gray-200 ">
               {trains.map(train => (
-                <tr onClick={()=>{navigate('/admin/trainSummary' , {state  : {...train , "arrival":addTimeDuration(train.startTime , train.duration) } })}}  className='border-2  m-3 p-2 cursor-pointer ' 
+                <tr onClick={()=>{navigate('/ad_trainSummary' , {state  : {...train , "arrival":addTimeDuration(train.startTime , train.duration) } })}}  className='border-2  m-3 p-2 cursor-pointer ' 
                 // onMouseEnter={() => setHoveredTrain(train.trainNumber)}
             // onMouseLeave={(/) => setHoveredTrain(null)}
             style={{
